@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\HospitalNotification;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateHospitalNotificationAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateHospitalNotificationAPIRequest extends APIRequest
     public function rules()
     {
         $rules = HospitalNotification::$rules;
-        
+
         return $rules;
     }
 }

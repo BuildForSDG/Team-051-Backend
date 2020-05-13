@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Lga;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateLgaAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateLgaAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Lga::$rules;
-        
+
         return $rules;
     }
 }

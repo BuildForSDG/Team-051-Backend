@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Panic;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdatePanicAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdatePanicAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Panic::$rules;
-        
+
         return $rules;
     }
 }

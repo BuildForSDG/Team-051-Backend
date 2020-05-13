@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Road;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateRoadAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateRoadAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Road::$rules;
-        
+
         return $rules;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\SafetyForce;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateSafetyForceAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateSafetyForceAPIRequest extends APIRequest
     public function rules()
     {
         $rules = SafetyForce::$rules;
-        
+
         return $rules;
     }
 }

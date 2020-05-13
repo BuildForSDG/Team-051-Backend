@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Road;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateRoadAPIRequest extends APIRequest
 {

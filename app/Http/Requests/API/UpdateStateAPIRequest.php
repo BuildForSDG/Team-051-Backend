@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\State;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateStateAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateStateAPIRequest extends APIRequest
     public function rules()
     {
         $rules = State::$rules;
-        
+
         return $rules;
     }
 }

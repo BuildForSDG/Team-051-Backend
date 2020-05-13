@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Country;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateCountryAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateCountryAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Country::$rules;
-        
+
         return $rules;
     }
 }

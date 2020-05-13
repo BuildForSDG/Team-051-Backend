@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\SafetyForce;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateSafetyForceAPIRequest extends APIRequest
 {

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\UserSetting;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateUserSettingAPIRequest extends APIRequest
 {

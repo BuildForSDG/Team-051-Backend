@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\PoliceResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdatePoliceResponseAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdatePoliceResponseAPIRequest extends APIRequest
     public function rules()
     {
         $rules = PoliceResponse::$rules;
-        
+
         return $rules;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\HospitalResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateHospitalResponseAPIRequest extends APIRequest
 {

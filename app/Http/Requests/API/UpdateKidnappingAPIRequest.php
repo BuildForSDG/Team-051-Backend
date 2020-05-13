@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Kidnapping;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateKidnappingAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateKidnappingAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Kidnapping::$rules;
-        
+
         return $rules;
     }
 }

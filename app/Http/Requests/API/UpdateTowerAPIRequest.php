@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Tower;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateTowerAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateTowerAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Tower::$rules;
-        
+
         return $rules;
     }
 }

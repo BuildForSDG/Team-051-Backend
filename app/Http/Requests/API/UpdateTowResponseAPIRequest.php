@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\TowResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateTowResponseAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateTowResponseAPIRequest extends APIRequest
     public function rules()
     {
         $rules = TowResponse::$rules;
-        
+
         return $rules;
     }
 }

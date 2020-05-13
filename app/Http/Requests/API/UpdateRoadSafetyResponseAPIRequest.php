@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\RoadSafetyResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateRoadSafetyResponseAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateRoadSafetyResponseAPIRequest extends APIRequest
     public function rules()
     {
         $rules = RoadSafetyResponse::$rules;
-        
+
         return $rules;
     }
 }

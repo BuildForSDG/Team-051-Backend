@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Phone;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdatePhoneAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdatePhoneAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Phone::$rules;
-        
+
         return $rules;
     }
 }

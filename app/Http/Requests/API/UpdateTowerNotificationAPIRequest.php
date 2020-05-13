@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\TowerNotification;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateTowerNotificationAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateTowerNotificationAPIRequest extends APIRequest
     public function rules()
     {
         $rules = TowerNotification::$rules;
-        
+
         return $rules;
     }
 }

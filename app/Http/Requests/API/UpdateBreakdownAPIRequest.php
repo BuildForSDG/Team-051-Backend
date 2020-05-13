@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Breakdown;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateBreakdownAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateBreakdownAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Breakdown::$rules;
-        
+
         return $rules;
     }
 }

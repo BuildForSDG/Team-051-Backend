@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Robbery;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateRobberyAPIRequest extends APIRequest
 {

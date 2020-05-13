@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Trip;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateTripAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateTripAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Trip::$rules;
-        
+
         return $rules;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Incident;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateIncidentAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateIncidentAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Incident::$rules;
-        
+
         return $rules;
     }
 }
