@@ -20,6 +20,7 @@ class CreatePoliceStationNotificationsTable extends Migration
             $table->integer('incidentable_id');
             $table->string('incidentable_type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

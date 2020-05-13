@@ -18,13 +18,13 @@ class CreateResponsesTable extends Migration
             $table->integer('road_id');
             $table->integer('trip_id');
             $table->integer('incident_id');
-            $table->dateTime('start_time'); 
+            $table->dateTime('start_time');
             $table->dateTime('onsite_time');
             $table->dateTime('end_time');
             $table->enum('status', ['completed','ongoing']);
             $table->integer('incidentable_id');
             $table->string('incidentable_type');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

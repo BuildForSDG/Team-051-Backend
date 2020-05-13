@@ -17,7 +17,7 @@ class CreatePanicsTable extends Migration
             $table->id();
             $table->enum('type', ['lost track for 30 mins','panic button','suspect robbery']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

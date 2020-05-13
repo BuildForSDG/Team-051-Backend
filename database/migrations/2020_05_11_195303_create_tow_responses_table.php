@@ -21,7 +21,7 @@ class CreateTowResponsesTable extends Migration
             $table->integer('incident_id');
             $table->enum('status', ['on-site','towling','cancelled','completed']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

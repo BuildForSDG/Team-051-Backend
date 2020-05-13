@@ -27,8 +27,9 @@ class CreateHospitalsTable extends Migration
             $table->integer('total_response')->default(0);
             $table->integer('total_success')->default(0);
             $table->integer('total_fails')->default(0);
-            $table->integer('rating')->default(0);	
+            $table->integer('rating')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

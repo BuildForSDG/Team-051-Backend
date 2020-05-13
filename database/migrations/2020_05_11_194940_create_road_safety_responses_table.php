@@ -21,7 +21,7 @@ class CreateRoadSafetyResponsesTable extends Migration
             $table->integer('incident_id');
             $table->enum('status', ['saved','on-site','helping','helped','rescue','first aid','safe','completed']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

@@ -19,7 +19,7 @@ class CreateTowerNotificationsTable extends Migration
             $table->integer('channel_id');
             $table->integer('incidentable_id');
             $table->string('incidentable_type');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

@@ -25,7 +25,7 @@ class CreateIncidentsTable extends Migration
             $table->enum('status', ['ongoing','over']);
             $table->integer('incidentable_id');
             $table->string('incidentable_type');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

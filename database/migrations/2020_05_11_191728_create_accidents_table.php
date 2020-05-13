@@ -19,6 +19,7 @@ class CreateAccidentsTable extends Migration
             $table->enum('status', ['ongoing','over']);
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

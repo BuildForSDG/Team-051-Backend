@@ -15,11 +15,12 @@ class CreateLgasTable extends Migration
     {
         Schema::create('lgas', function (Blueprint $table) {
             $table->id();
+            $table->integer('state_id');
             $table->string('name');
             $table->string('state_slug');
             $table->enum('status',['disabled','enabled']);
-            $table->text('description'); 
-            $table->timestamps();
+            $table->text('description');
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

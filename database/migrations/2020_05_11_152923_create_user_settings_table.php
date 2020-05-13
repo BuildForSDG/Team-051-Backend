@@ -18,8 +18,9 @@ class CreateUserSettingsTable extends Migration
             $table->integer('user_id')->unsigned();
             // for relationship just uncomment
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->boolean('track_venhicle');
+            $table->boolean('track_vehicle');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

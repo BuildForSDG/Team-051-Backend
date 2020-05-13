@@ -21,7 +21,7 @@ class CreatePoliceResponsesTable extends Migration
             $table->integer('incident_id');
             $table->enum('status', ['saved','rescue','assisting']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 
