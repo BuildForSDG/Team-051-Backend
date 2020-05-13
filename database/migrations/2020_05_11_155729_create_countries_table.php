@@ -28,7 +28,7 @@ class CreateCountriesTable extends Migration
             $table->string('postal_code');
             $table->string('language');
             $table->string('geonameid');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

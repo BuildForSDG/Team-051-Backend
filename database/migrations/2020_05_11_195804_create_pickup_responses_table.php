@@ -21,7 +21,7 @@ class CreatePickupResponsesTable extends Migration
             $table->integer('incident_id');
             $table->enum('status', ['on-site','picked','dropping-off','cancelled','completed']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

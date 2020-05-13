@@ -21,7 +21,7 @@ class CreateHospitalResponsesTable extends Migration
             $table->integer('incident_id');
             $table->enum('status', ['saved','admitted','first aid','discharged']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

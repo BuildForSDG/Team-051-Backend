@@ -17,10 +17,10 @@ class CreateTripsTable extends Migration
             $table->id();
             $table->integer('road_id');
             $table->integer('incident_id')->nullable();
-            $table->dateTime('start_time'); 
+            $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->enum('status',['ongoing', 'lost', 'track', 'completed', 'cancelled']);
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

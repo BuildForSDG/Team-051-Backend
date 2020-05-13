@@ -17,7 +17,7 @@ class CreateBreakdownsTable extends Migration
             $table->id();
             $table->enum('type', ['flat tire','overheating',"dont know"]);
             $table->enum('status', ['ongoing','over','completed']);
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

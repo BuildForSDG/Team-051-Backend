@@ -22,7 +22,7 @@ class CreateRoadsTable extends Migration
             $table->integer('total_death')->default(0);
             $table->integer('total_kidnapping')->default(0);
             $table->integer('risk_rating')->default(0);
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

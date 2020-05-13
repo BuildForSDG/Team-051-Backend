@@ -18,7 +18,7 @@ class CreateRobberiesTable extends Migration
             $table->enum('type',['fatal','minor']);
             $table->enum('status', ['ongoing','over', 'robbed']);
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 

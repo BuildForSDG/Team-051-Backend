@@ -13,7 +13,7 @@ class CreateSafetyForceTable extends Migration
      */
     public function up()
     {
-        Schema::create('safety_force', function (Blueprint $table) {
+        Schema::create('safety_forces', function (Blueprint $table) {
             $table->id();
             $table->integer('state_id');
             $table->integer('lga_id');
@@ -24,7 +24,7 @@ class CreateSafetyForceTable extends Migration
             $table->integer('total_success')->default(0);
             $table->integer('total_fails')->default(0);
             $table->integer('rating')->default(0);
-            $table->timestamps();
+            $table->timestamps(); $table->softDeletes();
         });
     }
 
@@ -35,6 +35,6 @@ class CreateSafetyForceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('safety_force');
+        Schema::dropIfExists('safety_forces');
     }
 }
