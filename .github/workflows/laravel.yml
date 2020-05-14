@@ -54,7 +54,7 @@ jobs:
       - name: Set Heroku branch
         run: heroku git:remote -a team-backend-051
       - name: Show Heroku info
-        run: heroku info
+        run: heroku info team-backend-051
       - name: Push to Heroku
         run: git push heroku +HEAD:refs/heads/master
       - name: Set App key
