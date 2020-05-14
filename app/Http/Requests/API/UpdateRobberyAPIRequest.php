@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Robbery;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateRobberyAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateRobberyAPIRequest extends APIRequest
     public function rules()
     {
         $rules = Robbery::$rules;
-        
+
         return $rules;
     }
 }

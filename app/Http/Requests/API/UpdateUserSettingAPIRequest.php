@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\UserSetting;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateUserSettingAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateUserSettingAPIRequest extends APIRequest
     public function rules()
     {
         $rules = UserSetting::$rules;
-        
+
         return $rules;
     }
 }

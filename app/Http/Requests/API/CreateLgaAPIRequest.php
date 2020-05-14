@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Lga;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateLgaAPIRequest extends APIRequest
 {

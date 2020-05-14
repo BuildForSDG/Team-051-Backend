@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\TowResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateTowResponseAPIRequest extends APIRequest
 {

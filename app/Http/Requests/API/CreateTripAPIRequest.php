@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Trip;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateTripAPIRequest extends APIRequest
 {

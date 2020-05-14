@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\UserNotification;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateUserNotificationAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateUserNotificationAPIRequest extends APIRequest
     public function rules()
     {
         $rules = UserNotification::$rules;
-        
+
         return $rules;
     }
 }

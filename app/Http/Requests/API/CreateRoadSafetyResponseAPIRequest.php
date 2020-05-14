@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\RoadSafetyResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateRoadSafetyResponseAPIRequest extends APIRequest
 {

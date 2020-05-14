@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Tower;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateTowerAPIRequest extends APIRequest
 {

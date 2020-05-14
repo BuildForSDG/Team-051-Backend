@@ -3,7 +3,6 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Accident;
-use InfyOm\Generator\Request\APIRequest;
 
 class CreateAccidentAPIRequest extends APIRequest
 {

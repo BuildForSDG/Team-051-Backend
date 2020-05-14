@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Panic;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreatePanicAPIRequest extends APIRequest
 {

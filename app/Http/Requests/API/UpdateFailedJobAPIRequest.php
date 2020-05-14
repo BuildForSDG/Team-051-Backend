@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\FailedJob;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdateFailedJobAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdateFailedJobAPIRequest extends APIRequest
     public function rules()
     {
         $rules = FailedJob::$rules;
-        
+
         return $rules;
     }
 }

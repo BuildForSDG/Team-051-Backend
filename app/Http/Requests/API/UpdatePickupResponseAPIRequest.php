@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\PickupResponse;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class UpdatePickupResponseAPIRequest extends APIRequest
 {
@@ -25,7 +25,7 @@ class UpdatePickupResponseAPIRequest extends APIRequest
     public function rules()
     {
         $rules = PickupResponse::$rules;
-        
+
         return $rules;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\Pickup;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreatePickupAPIRequest extends APIRequest
 {

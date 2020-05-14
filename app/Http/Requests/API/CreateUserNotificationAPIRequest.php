@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API;
 
 use App\Models\UserNotification;
-use InfyOm\Generator\Request\APIRequest;
+
 
 class CreateUserNotificationAPIRequest extends APIRequest
 {
