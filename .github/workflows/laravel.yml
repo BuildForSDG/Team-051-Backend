@@ -30,7 +30,7 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
   build:
-    needs: testing
+    #needs: testing
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
