@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoadsTableSeeder::class);
         $this->call(IncidentsTableSeeder::class);
         $this->call(TripsTableSeeder::class);
-        $this->call(panicsTableSeeder::class);
         $this->call(RobberiesTableSeeder::class);
         $this->call(KidnappingsTableSeeder::class);
         $this->call(ResponsesTableSeeder::class);
@@ -41,6 +40,5 @@ class DatabaseSeeder extends Seeder
         $this->call(TowResponsesTableSeeder::class);
         $this->call(PickupResponsesTableSeeder::class);
         $this->call(RoadSafetyResponsesTableSeeder::class);
-        \$this->call(PanicsTableSeeder::class);
     }
 }

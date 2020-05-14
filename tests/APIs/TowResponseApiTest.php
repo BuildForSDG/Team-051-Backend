@@ -19,7 +19,7 @@ class TowResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/tow_responses', $towResponse
+            '/api/tow-responses', $towResponse
         );
 
         $this->assertApiResponse($towResponse);
@@ -34,7 +34,7 @@ class TowResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/tow_responses/'.$towResponse->id
+            '/api/tow-responses/'.$towResponse->id
         );
 
         $this->assertApiResponse($towResponse->toArray());
@@ -50,7 +50,7 @@ class TowResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/tow_responses/'.$towResponse->id,
+            '/api/tow-responses/'.$towResponse->id,
             $editedTowResponse
         );
 
@@ -66,13 +66,13 @@ class TowResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/tow_responses/'.$towResponse->id
+             '/api/tow-responses/'.$towResponse->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/tow_responses/'.$towResponse->id
+            '/api/tow-responses/'.$towResponse->id
         );
 
         $this->response->assertStatus(404);

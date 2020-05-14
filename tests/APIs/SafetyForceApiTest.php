@@ -19,7 +19,7 @@ class SafetyForceApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/safety_forces', $safetyForce
+            '/api/safety-forces', $safetyForce
         );
 
         $this->assertApiResponse($safetyForce);
@@ -34,7 +34,7 @@ class SafetyForceApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/safety_forces/'.$safetyForce->id
+            '/api/safety-forces/'.$safetyForce->id
         );
 
         $this->assertApiResponse($safetyForce->toArray());
@@ -50,7 +50,7 @@ class SafetyForceApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/safety_forces/'.$safetyForce->id,
+            '/api/safety-forces/'.$safetyForce->id,
             $editedSafetyForce
         );
 
@@ -66,13 +66,13 @@ class SafetyForceApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/safety_forces/'.$safetyForce->id
+             '/api/safety-forces/'.$safetyForce->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/safety_forces/'.$safetyForce->id
+            '/api/safety-forces/'.$safetyForce->id
         );
 
         $this->response->assertStatus(404);

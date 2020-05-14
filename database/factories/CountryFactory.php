@@ -19,7 +19,7 @@ $factory->define(Country::class, function (Faker $faker) {
         'currency_name' => $faker->word,
         'phone_prefix' => $faker->word,
         'postal_code' => $faker->word,
-        'language' => $faker->word,
+        'languages' => $faker->word,
         'geonameid' => $faker->word
     ];
 });

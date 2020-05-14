@@ -19,7 +19,7 @@ class RoadSafetyResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/road_safety_responses', $roadSafetyResponse
+            '/api/road-safety-responses', $roadSafetyResponse
         );
 
         $this->assertApiResponse($roadSafetyResponse);
@@ -34,7 +34,7 @@ class RoadSafetyResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/road_safety_responses/'.$roadSafetyResponse->id
+            '/api/road-safety-responses/'.$roadSafetyResponse->id
         );
 
         $this->assertApiResponse($roadSafetyResponse->toArray());
@@ -50,7 +50,7 @@ class RoadSafetyResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/road_safety_responses/'.$roadSafetyResponse->id,
+            '/api/road-safety-responses/'.$roadSafetyResponse->id,
             $editedRoadSafetyResponse
         );
 
@@ -66,13 +66,13 @@ class RoadSafetyResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/road_safety_responses/'.$roadSafetyResponse->id
+             '/api/road-safety-responses/'.$roadSafetyResponse->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/road_safety_responses/'.$roadSafetyResponse->id
+            '/api/road-safety-responses/'.$roadSafetyResponse->id
         );
 
         $this->response->assertStatus(404);

@@ -19,7 +19,7 @@ class PickupResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/pickup_responses', $pickupResponse
+            '/api/pickup-responses', $pickupResponse
         );
 
         $this->assertApiResponse($pickupResponse);
@@ -34,7 +34,7 @@ class PickupResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/pickup_responses/'.$pickupResponse->id
+            '/api/pickup-responses/'.$pickupResponse->id
         );
 
         $this->assertApiResponse($pickupResponse->toArray());
@@ -50,7 +50,7 @@ class PickupResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/pickup_responses/'.$pickupResponse->id,
+            '/api/pickup-responses/'.$pickupResponse->id,
             $editedPickupResponse
         );
 
@@ -66,13 +66,13 @@ class PickupResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/pickup_responses/'.$pickupResponse->id
+             '/api/pickup-responses/'.$pickupResponse->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/pickup_responses/'.$pickupResponse->id
+            '/api/pickup-responses/'.$pickupResponse->id
         );
 
         $this->response->assertStatus(404);

@@ -19,7 +19,7 @@ class HospitalResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/hospital_responses', $hospitalResponse
+            '/api/hospital-responses', $hospitalResponse
         );
 
         $this->assertApiResponse($hospitalResponse);
@@ -34,7 +34,7 @@ class HospitalResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/hospital_responses/'.$hospitalResponse->id
+            '/api/hospital-responses/'.$hospitalResponse->id
         );
 
         $this->assertApiResponse($hospitalResponse->toArray());
@@ -50,7 +50,7 @@ class HospitalResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/hospital_responses/'.$hospitalResponse->id,
+            '/api/hospital-responses/'.$hospitalResponse->id,
             $editedHospitalResponse
         );
 
@@ -66,13 +66,13 @@ class HospitalResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/hospital_responses/'.$hospitalResponse->id
+             '/api/hospital-responses/'.$hospitalResponse->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/hospital_responses/'.$hospitalResponse->id
+            '/api/hospital-responses/'.$hospitalResponse->id
         );
 
         $this->response->assertStatus(404);

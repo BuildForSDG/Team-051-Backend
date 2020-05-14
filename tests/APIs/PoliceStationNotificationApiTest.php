@@ -19,7 +19,7 @@ class PoliceStationNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/police_station_notifications', $policeStationNotification
+            '/api/police-station-notifications', $policeStationNotification
         );
 
         $this->assertApiResponse($policeStationNotification);
@@ -34,7 +34,7 @@ class PoliceStationNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/police_station_notifications/'.$policeStationNotification->id
+            '/api/police-station-notifications/'.$policeStationNotification->id
         );
 
         $this->assertApiResponse($policeStationNotification->toArray());
@@ -50,7 +50,7 @@ class PoliceStationNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/police_station_notifications/'.$policeStationNotification->id,
+            '/api/police-station-notifications/'.$policeStationNotification->id,
             $editedPoliceStationNotification
         );
 
@@ -66,13 +66,13 @@ class PoliceStationNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/police_station_notifications/'.$policeStationNotification->id
+             '/api/police-station-notifications/'.$policeStationNotification->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/police_station_notifications/'.$policeStationNotification->id
+            '/api/police-station-notifications/'.$policeStationNotification->id
         );
 
         $this->response->assertStatus(404);
