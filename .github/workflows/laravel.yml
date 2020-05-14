@@ -2,9 +2,9 @@ name: Team-051-Banckend
 
 on:
   push:
-    branches: [ dbg-fix-heroku-deploy ]
-#  pull_request:
-#    branches: [ develop ]
+    branches: [ develop, dbg-fix-heroku-deploy ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
 
