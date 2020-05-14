@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $currency_name
  * @property string $phone_prefix
  * @property string $postal_code
- * @property string $language
+ * @property string $languages
  * @property string $geonameid
  */
 class Country extends Model
@@ -29,7 +29,7 @@ class Country extends Model
     use SoftDeletes;
 
     public $table = 'countries';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -48,9 +48,9 @@ class Country extends Model
         'continent',
         'currency_code',
         'currency_name',
+        'languages',
         'phone_prefix',
         'postal_code',
-        'language',
         'geonameid'
     ];
 
@@ -72,7 +72,7 @@ class Country extends Model
         'currency_name' => 'string',
         'phone_prefix' => 'string',
         'postal_code' => 'string',
-        'language' => 'string',
+        'languages' => 'string',
         'geonameid' => 'string'
     ];
 
@@ -93,9 +93,9 @@ class Country extends Model
         'currency_name' => 'required',
         'phone_prefix' => 'required',
         'postal_code' => 'required',
-        'language' => 'required',
+        'languages' => 'required',
         'geonameid' => 'required'
     ];
 
-    
+
 }

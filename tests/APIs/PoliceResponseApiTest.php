@@ -19,7 +19,7 @@ class PoliceResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/police_responses', $policeResponse
+            '/api/police-responses', $policeResponse
         );
 
         $this->assertApiResponse($policeResponse);
@@ -34,7 +34,7 @@ class PoliceResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/police_responses/'.$policeResponse->id
+            '/api/police-responses/'.$policeResponse->id
         );
 
         $this->assertApiResponse($policeResponse->toArray());
@@ -50,7 +50,7 @@ class PoliceResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/police_responses/'.$policeResponse->id,
+            '/api/police-responses/'.$policeResponse->id,
             $editedPoliceResponse
         );
 
@@ -66,13 +66,13 @@ class PoliceResponseApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/police_responses/'.$policeResponse->id
+             '/api/police-responses/'.$policeResponse->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/police_responses/'.$policeResponse->id
+            '/api/police-responses/'.$policeResponse->id
         );
 
         $this->response->assertStatus(404);

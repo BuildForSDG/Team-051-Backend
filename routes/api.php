@@ -18,7 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::resource('users', 'UserAPIController');
 
 Route::resource('accidents', 'AccidentAPIController');
@@ -27,25 +26,25 @@ Route::resource('breakdowns', 'BreakdownAPIController');
 
 Route::resource('countries', 'CountryAPIController');
 
-Route::resource('failed_jobs', 'FailedJobAPIController');
+Route::resource('failed-jobs', 'FailedJobAPIController');
 
-Route::resource('user_settings', 'UserSettingAPIController');
+Route::resource('user-settings', 'UserSettingAPIController');
 
-Route::resource('user_notifications', 'UserNotificationAPIController');
+Route::resource('user-notifications', 'UserNotificationAPIController');
 
-Route::resource('hospital_notifications', 'HospitalNotificationAPIController');
+Route::resource('hospital-notifications', 'HospitalNotificationAPIController');
 
-Route::resource('police_station_notifications', 'PoliceStationNotificationAPIController');
+Route::resource('police-station-notifications', 'PoliceStationNotificationAPIController');
 
-Route::resource('tower_notifications', 'TowerNotificationAPIController');
+Route::resource('tower-notifications', 'TowerNotificationAPIController');
 
 Route::resource('states', 'StateAPIController');
 
 Route::resource('lgas', 'LgaAPIController');
 
-Route::resource('police_stations', 'PoliceStationAPIController');
+Route::resource('police-stations', 'PoliceStationAPIController');
 
-Route::resource('safety_forces', 'SafetyForceAPIController');
+Route::resource('safety-forces', 'SafetyForceAPIController');
 
 Route::resource('hospitals', 'HospitalAPIController');
 
@@ -61,7 +60,7 @@ Route::resource('incidents', 'IncidentAPIController');
 
 Route::resource('trips', 'TripAPIController');
 
-Route::resource('panics', 'panicAPIController');
+//Route::resource('panics', 'panicAPIController');
 
 Route::resource('robberies', 'RobberyAPIController');
 
@@ -69,12 +68,12 @@ Route::resource('kidnappings', 'KidnappingAPIController');
 
 Route::resource('responses', 'ResponseAPIController');
 
-Route::resource('hospital_responses', 'HospitalResponseAPIController');
+Route::resource('hospital-responses', 'HospitalResponseAPIController');
 
-Route::resource('police_responses', 'PoliceResponseAPIController');
+Route::resource('police-responses', 'PoliceResponseAPIController');
 
-Route::resource('tow_responses', 'TowResponseAPIController');
+Route::resource('tow-responses', 'TowResponseAPIController');
 
-Route::resource('pickup_responses', 'PickupResponseAPIController');
+Route::resource('pickup-responses', 'PickupResponseAPIController');
 
-Route::resource('road_safety_responses', 'RoadSafetyResponseAPIController');
+Route::resource('road-safety-responses', 'RoadSafetyResponseAPIController');

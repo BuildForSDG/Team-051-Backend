@@ -19,7 +19,7 @@ class TowerNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'POST',
-            '/api/tower_notifications', $towerNotification
+            '/api/tower-notifications', $towerNotification
         );
 
         $this->assertApiResponse($towerNotification);
@@ -34,7 +34,7 @@ class TowerNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'GET',
-            '/api/tower_notifications/'.$towerNotification->id
+            '/api/tower-notifications/'.$towerNotification->id
         );
 
         $this->assertApiResponse($towerNotification->toArray());
@@ -50,7 +50,7 @@ class TowerNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'PUT',
-            '/api/tower_notifications/'.$towerNotification->id,
+            '/api/tower-notifications/'.$towerNotification->id,
             $editedTowerNotification
         );
 
@@ -66,13 +66,13 @@ class TowerNotificationApiTest extends TestCase
 
         $this->response = $this->json(
             'DELETE',
-             '/api/tower_notifications/'.$towerNotification->id
+             '/api/tower-notifications/'.$towerNotification->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/tower_notifications/'.$towerNotification->id
+            '/api/tower-notifications/'.$towerNotification->id
         );
 
         $this->response->assertStatus(404);

@@ -19,7 +19,7 @@ class CreateLgasTable extends Migration
             $table->string('name');
             $table->string('state_slug');
             $table->enum('status',['disabled','enabled']);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps(); $table->softDeletes();
         });
     }

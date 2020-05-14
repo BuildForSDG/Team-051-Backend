@@ -19,7 +19,7 @@ class CreateStatesTable extends Migration
             $table->string('slug');
             $table->string('country_iso');
             $table->enum('status',['disabled','enabled']);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps(); $table->softDeletes();
 
         });
