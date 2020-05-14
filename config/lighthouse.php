@@ -24,6 +24,8 @@ return [
          */
         'name' => 'graphql',
 
+        'guard' => 'sanctum',
+
         /*
          * Beware that middleware defined here runs before the GraphQL execution phase,
          * make sure to return spec-compliant responses in case an error is thrown.
@@ -34,7 +36,9 @@ return [
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
             // If you want to use another guard, change the suffix (remove for default).
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class.':api',
+//            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class.':api',
+            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+//            'auth:api',
         ],
 
         /*

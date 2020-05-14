@@ -2,7 +2,7 @@ name: Team-051-Banckend
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, bg-fix-heroku-deploy ]
   pull_request:
     branches: [ develop ]
 
@@ -29,7 +29,8 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
-  build:
+  deploy:
+    if: github.ref == 'develop'
     needs: testing
     runs-on: ubuntu-18.04
     steps:
@@ -52,11 +53,15 @@ jobs:
       - name: Login to Heroku
         run: heroku login
       - name: Set Heroku branch
-        run: heroku git:remote -a team-backend-051
+        run: heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
+      - name: Show Heroku info
+        run: heroku info ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
         run: git push heroku +HEAD:refs/heads/master
       - name: Set App key
         run: heroku config:set APP_KEY=${{ secrets.APP_KEY }}
+      - name: Set Slack Web hook
+        run: heroku config:set LOG_SLACK_WEBHOOK_URL=${{ secrets.LOG_SLACK_WEBHOOK_URL }}
       - name: Run Key generate
         run: heroku run php artisan key:generate
       - name: Run Laravel Migrations

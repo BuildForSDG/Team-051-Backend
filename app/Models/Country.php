@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Country
@@ -97,5 +99,12 @@ class Country extends Model
         'geonameid' => 'required'
     ];
 
-
+    /**
+     *
+     * @return HasMany
+     */
+    public function states(): HasMany
+    {
+        return $this->hasMany(State::class, 'country_iso', 'iso');
+    }
 }
