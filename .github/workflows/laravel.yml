@@ -60,6 +60,8 @@ jobs:
         run: git push heroku +HEAD:refs/heads/master
       - name: Set App key
         run: heroku config:set APP_KEY=${{ secrets.APP_KEY }}
+      - name: Set Slack Web hook
+        run: heroku config:set LOG_SLACK_WEBHOOK_URL=${{ secrets.LOG_SLACK_WEBHOOK_URL }}
       - name: Run Key generate
         run: heroku run php artisan key:generate
       - name: Run Laravel Migrations

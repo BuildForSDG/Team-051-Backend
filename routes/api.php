@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/', function () {
+    Log::critical('API base was accessed');
+});
+
 Route::resource('users', 'UserAPIController');
 
 Route::resource('accidents', 'AccidentAPIController');

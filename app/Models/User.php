@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
@@ -18,25 +22,33 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $source
  * @property string $remember_token
  */
-class User extends Model
+class User extends Authenticatable
 {
-    use SoftDeletes;
+    use HasRoles, SoftDeletes, HasApiTokens, Notifiable;
 
     public $table = 'users';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
 
     protected $dates = ['deleted_at'];
 
-
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'password',
+        'first_name',
+        'last_name',
         'status',
         'source',
         'remember_token'
@@ -55,7 +67,8 @@ class User extends Model
         'password' => 'string',
         'status' => 'string',
         'source' => 'string',
-        'remember_token' => 'string'
+        'remember_token' => 'string',
+        'email_verified_at' => 'datetime'
     ];
 
     /**
@@ -70,5 +83,5 @@ class User extends Model
         'source' => 'required'
     ];
 
-    
+
 }

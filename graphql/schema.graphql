@@ -7,15 +7,52 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
+#extend type Query @guard
+#adminInfo: Secrets
+#nukeCodes: [NukeCode!]!
+#}
+
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    me: User @auth
+    countries: [Country!]! @all
+    country(id: Int! @eq): Country @find
+    states: [State!]! @all
+    state(id: Int! @eq): State @find
+}
+
+#type @guard Country {
+type Country
+{
+    id: ID!
+    iso: String!
+    iso3: String!
+    status: String!
+    description: String!
+    fips: String!
+    continent: String!
+    currency_code: String!
+    currency_name: String!
+    phone_prefix: String!
+    postal_code: String!
+    geonameid: String!
+    states: [State!]!
+}
+
+type State {
+    id: ID!
+    name: String!
+    slug: String!
+    country_iso: String!
+    status: String!
+    description: String
 }
 
 type User {
     id: ID!
-    name: String!
     email: String!
-    created_at: DateTime!
-    updated_at: DateTime!
+    name: String
+    first_name: String!
+    last_name: String!
+    status: String!
+    source: String!
 }
