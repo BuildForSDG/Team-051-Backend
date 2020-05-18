@@ -46,15 +46,15 @@ class TowerNotificationApiTest extends TestCase
     public function test_update_tower_notification()
     {
         $notification = factory(TowerNotification::class)->create();
-        $editedTowerNotification = factory(TowerNotification::class)->make()->toArray();
+        $edited = factory(TowerNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
             '/api/tower-notifications/'.$notification->id,
-            $editedTowerNotification
+            $edited
         );
 
-        $this->assertApiResponse($editedTowerNotification);
+        $this->assertApiResponse($edited);
     }
 
     /**

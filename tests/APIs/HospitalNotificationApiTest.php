@@ -46,15 +46,15 @@ class HospitalNotificationApiTest extends TestCase
     public function test_update_hospital_notification()
     {
         $notification = factory(HospitalNotification::class)->create();
-        $editedHospitalNotification = factory(HospitalNotification::class)->make()->toArray();
+        $edited = factory(HospitalNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
             '/api/hospital-notifications/'.$notification->id,
-            $editedHospitalNotification
+            $edited
         );
 
-        $this->assertApiResponse($editedHospitalNotification);
+        $this->assertApiResponse($edited);
     }
 
     /**

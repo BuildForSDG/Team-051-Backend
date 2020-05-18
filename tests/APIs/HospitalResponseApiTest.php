@@ -46,15 +46,15 @@ class HospitalResponseApiTest extends TestCase
     public function test_update_hospital_response()
     {
         $response = factory(HospitalResponse::class)->create();
-        $editedHospitalResponse = factory(HospitalResponse::class)->make()->toArray();
+        $edited = factory(HospitalResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
             '/api/hospital-responses/'.$response->id,
-            $editedHospitalResponse
+            $edited
         );
 
-        $this->assertApiResponse($editedHospitalResponse);
+        $this->assertApiResponse($edited);
     }
 
     /**

@@ -46,15 +46,15 @@ class RoadSafetyResponseApiTest extends TestCase
     public function test_update_road_safety_response()
     {
         $response = factory(RoadSafetyResponse::class)->create();
-        $editedRoadSafetyResponse = factory(RoadSafetyResponse::class)->make()->toArray();
+        $edited = factory(RoadSafetyResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
             '/api/road-safety-responses/'.$response->id,
-            $editedRoadSafetyResponse
+            $edited
         );
 
-        $this->assertApiResponse($editedRoadSafetyResponse);
+        $this->assertApiResponse($edited);
     }
 
     /**

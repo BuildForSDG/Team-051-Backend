@@ -46,15 +46,15 @@ class PoliceStationNotificationApiTest extends TestCase
     public function test_update_police_station_notification()
     {
         $notification = factory(PoliceStationNotification::class)->create();
-        $editedPoliceStationNotification = factory(PoliceStationNotification::class)->make()->toArray();
+        $edited = factory(PoliceStationNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
             '/api/police-station-notifications/'.$notification->id,
-            $editedPoliceStationNotification
+            $edited
         );
 
-        $this->assertApiResponse($editedPoliceStationNotification);
+        $this->assertApiResponse($edited);
     }
 
     /**
