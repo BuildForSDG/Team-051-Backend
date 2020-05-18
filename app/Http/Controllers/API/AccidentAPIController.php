@@ -62,16 +62,16 @@ class AccidentAPIController extends AppBaseController
 
     /**
      * Display the specified Accident.
-     * GET|HEAD /accidents/{id}
+     * GET|HEAD /accidents/{accident_id}
      *
-     * @param int $id
+     * @param int $accident_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($accident_id)
     {
         /** @var Accident $accident */
-        $accident = $this->accidentRepository->find($id);
+        $accident = $this->accidentRepository->find($accident_id);
 
         if (empty($accident)) {
             return $this->sendError('Accident not found');
@@ -82,43 +82,43 @@ class AccidentAPIController extends AppBaseController
 
     /**
      * Update the specified Accident in storage.
-     * PUT/PATCH /accidents/{id}
+     * PUT/PATCH /accidents/{accident_id}
      *
-     * @param int $id
+     * @param int $accident_id
      * @param UpdateAccidentAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateAccidentAPIRequest $request)
+    public function update($accident_id, UpdateAccidentAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Accident $accident */
-        $accident = $this->accidentRepository->find($id);
+        $accident = $this->accidentRepository->find($accident_id);
 
         if (empty($accident)) {
             return $this->sendError('Accident not found');
         }
 
-        $accident = $this->accidentRepository->update($input, $id);
+        $accident = $this->accidentRepository->update($input, $accident_id);
 
         return $this->sendResponse($accident->toArray(), 'Accident updated successfully');
     }
 
     /**
      * Remove the specified Accident from storage.
-     * DELETE /accidents/{id}
+     * DELETE /accidents/{accident_id}
      *
-     * @param int $id
+     * @param int $accident_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($accident_id)
     {
         /** @var Accident $accident */
-        $accident = $this->accidentRepository->find($id);
+        $accident = $this->accidentRepository->find($accident_id);
 
         if (empty($accident)) {
             return $this->sendError('Accident not found');

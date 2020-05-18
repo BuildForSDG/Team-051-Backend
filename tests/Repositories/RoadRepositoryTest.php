@@ -18,7 +18,7 @@ class RoadRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->roadRepo = \App::make(RoadRepository::class);
+        $this->roadRepo = app(RoadRepository::class);
     }
 
     /**
@@ -33,7 +33,7 @@ class RoadRepositoryTest extends TestCase
         $createdRoad = $createdRoad->toArray();
         $this->assertArrayHasKey('id', $createdRoad);
         $this->assertNotNull($createdRoad['id'], 'Created Road must have id specified');
-        $this->assertNotNull(Road::find($createdRoad['id']), 'Road with given id must be in DB');
+        $this->assertNotNull((new Road)->find($createdRoad['id']), 'Road with given id must be in DB');
         $this->assertModelData($road, $createdRoad);
     }
 
@@ -75,6 +75,6 @@ class RoadRepositoryTest extends TestCase
         $resp = $this->roadRepo->delete($road->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Road::find($road->id), 'Road should not exist in DB');
+        $this->assertNull((new Road)->find($road->id), 'Road should not exist in DB');
     }
 }

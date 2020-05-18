@@ -18,11 +18,11 @@ use Response;
 class SafetyForceAPIController extends AppBaseController
 {
     /** @var  SafetyForceRepository */
-    private $safetyForceRepository;
+    private $safetyRepo;
 
-    public function __construct(SafetyForceRepository $safetyForceRepo)
+    public function __construct(SafetyForceRepository $safetyRepo)
     {
-        $this->safetyForceRepository = $safetyForceRepo;
+        $this->safetyRepo = $safetyRepo;
     }
 
     /**
@@ -34,7 +34,7 @@ class SafetyForceAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $safetyForces = $this->safetyForceRepository->all(
+        $safetyForces = $this->safetyRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
@@ -55,7 +55,7 @@ class SafetyForceAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $safetyForce = $this->safetyForceRepository->create($input);
+        $safetyForce = $this->safetyRepo->create($input);
 
         return $this->sendResponse($safetyForce->toArray(), 'Safety Force saved successfully');
     }
@@ -64,14 +64,14 @@ class SafetyForceAPIController extends AppBaseController
      * Display the specified SafetyForce.
      * GET|HEAD /safetyForces/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($safety_id)
     {
         /** @var SafetyForce $safetyForce */
-        $safetyForce = $this->safetyForceRepository->find($id);
+        $safetyForce = $this->safetyRepo->find($safety_id);
 
         if (empty($safetyForce)) {
             return $this->sendError('Safety Force not found');
@@ -84,23 +84,23 @@ class SafetyForceAPIController extends AppBaseController
      * Update the specified SafetyForce in storage.
      * PUT/PATCH /safetyForces/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      * @param UpdateSafetyForceAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateSafetyForceAPIRequest $request)
+    public function update($safety_id, UpdateSafetyForceAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var SafetyForce $safetyForce */
-        $safetyForce = $this->safetyForceRepository->find($id);
+        $safetyForce = $this->safetyRepo->find($safety_id);
 
         if (empty($safetyForce)) {
             return $this->sendError('Safety Force not found');
         }
 
-        $safetyForce = $this->safetyForceRepository->update($input, $id);
+        $safetyForce = $this->safetyRepo->update($input, $safety_id);
 
         return $this->sendResponse($safetyForce->toArray(), 'SafetyForce updated successfully');
     }
@@ -109,16 +109,16 @@ class SafetyForceAPIController extends AppBaseController
      * Remove the specified SafetyForce from storage.
      * DELETE /safetyForces/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($safety_id)
     {
         /** @var SafetyForce $safetyForce */
-        $safetyForce = $this->safetyForceRepository->find($id);
+        $safetyForce = $this->safetyRepo->find($safety_id);
 
         if (empty($safetyForce)) {
             return $this->sendError('Safety Force not found');

@@ -15,14 +15,14 @@ class PickupResponseApiTest extends TestCase
      */
     public function test_create_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->make()->toArray();
+        $response = factory(PickupResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'POST',
-            '/api/pickup-responses', $pickupResponse
+            '/api/pickup-responses', $response
         );
 
-        $this->assertApiResponse($pickupResponse);
+        $this->assertApiResponse($response);
     }
 
     /**
@@ -30,14 +30,14 @@ class PickupResponseApiTest extends TestCase
      */
     public function test_read_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->create();
+        $response = factory(PickupResponse::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/pickup-responses/'.$pickupResponse->id
+            '/api/pickup-responses/'.$response->id
         );
 
-        $this->assertApiResponse($pickupResponse->toArray());
+        $this->assertApiResponse($response->toArray());
     }
 
     /**
@@ -45,12 +45,12 @@ class PickupResponseApiTest extends TestCase
      */
     public function test_update_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->create();
+        $response = factory(PickupResponse::class)->create();
         $editedPickupResponse = factory(PickupResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
-            '/api/pickup-responses/'.$pickupResponse->id,
+            '/api/pickup-responses/'.$response->id,
             $editedPickupResponse
         );
 
@@ -62,17 +62,17 @@ class PickupResponseApiTest extends TestCase
      */
     public function test_delete_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->create();
+        $response = factory(PickupResponse::class)->create();
 
         $this->response = $this->json(
             'DELETE',
-             '/api/pickup-responses/'.$pickupResponse->id
+             '/api/pickup-responses/'.$response->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/pickup-responses/'.$pickupResponse->id
+            '/api/pickup-responses/'.$response->id
         );
 
         $this->response->assertStatus(404);

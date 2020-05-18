@@ -64,14 +64,14 @@ class StateAPIController extends AppBaseController
      * Display the specified State.
      * GET|HEAD /states/{id}
      *
-     * @param int $id
+     * @param int $state_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($state_id)
     {
         /** @var State $state */
-        $state = $this->stateRepository->find($id);
+        $state = $this->stateRepository->find($state_id);
 
         if (empty($state)) {
             return $this->sendError('State not found');
@@ -84,23 +84,23 @@ class StateAPIController extends AppBaseController
      * Update the specified State in storage.
      * PUT/PATCH /states/{id}
      *
-     * @param int $id
+     * @param int $state_id
      * @param UpdateStateAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateStateAPIRequest $request)
+    public function update($state_id, UpdateStateAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var State $state */
-        $state = $this->stateRepository->find($id);
+        $state = $this->stateRepository->find($state_id);
 
         if (empty($state)) {
             return $this->sendError('State not found');
         }
 
-        $state = $this->stateRepository->update($input, $id);
+        $state = $this->stateRepository->update($input, $state_id);
 
         return $this->sendResponse($state->toArray(), 'State updated successfully');
     }
@@ -109,16 +109,16 @@ class StateAPIController extends AppBaseController
      * Remove the specified State from storage.
      * DELETE /states/{id}
      *
-     * @param int $id
+     * @param int $state_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($state_id)
     {
         /** @var State $state */
-        $state = $this->stateRepository->find($id);
+        $state = $this->stateRepository->find($state_id);
 
         if (empty($state)) {
             return $this->sendError('State not found');

@@ -13,12 +13,12 @@ class SafetyForceRepositoryTest extends TestCase
     /**
      * @var SafetyForceRepository
      */
-    protected $safetyForceRepo;
+    protected $safetyRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->safetyForceRepo = \App::make(SafetyForceRepository::class);
+        $this->safetyRepo = app(SafetyForceRepository::class);
     }
 
     /**
@@ -28,13 +28,13 @@ class SafetyForceRepositoryTest extends TestCase
     {
         $safetyForce = factory(SafetyForce::class)->make()->toArray();
 
-        $createdSafetyForce = $this->safetyForceRepo->create($safetyForce);
+        $created = $this->safetyRepo->create($safetyForce);
 
-        $createdSafetyForce = $createdSafetyForce->toArray();
-        $this->assertArrayHasKey('id', $createdSafetyForce);
-        $this->assertNotNull($createdSafetyForce['id'], 'Created SafetyForce must have id specified');
-        $this->assertNotNull(SafetyForce::find($createdSafetyForce['id']), 'SafetyForce with given id must be in DB');
-        $this->assertModelData($safetyForce, $createdSafetyForce);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created SafetyForce must have id specified');
+        $this->assertNotNull((new SafetyForce)->find($created['id']), 'SafetyForce with given id must be in DB');
+        $this->assertModelData($safetyForce, $created);
     }
 
     /**
@@ -44,10 +44,10 @@ class SafetyForceRepositoryTest extends TestCase
     {
         $safetyForce = factory(SafetyForce::class)->create();
 
-        $dbSafetyForce = $this->safetyForceRepo->find($safetyForce->id);
+        $database = $this->safetyRepo->find($safetyForce->id);
 
-        $dbSafetyForce = $dbSafetyForce->toArray();
-        $this->assertModelData($safetyForce->toArray(), $dbSafetyForce);
+        $database = $database ->toArray();
+        $this->assertModelData($safetyForce->toArray(), $database);
     }
 
     /**
@@ -56,13 +56,13 @@ class SafetyForceRepositoryTest extends TestCase
     public function test_update_safety_force()
     {
         $safetyForce = factory(SafetyForce::class)->create();
-        $fakeSafetyForce = factory(SafetyForce::class)->make()->toArray();
+        $fake = factory(SafetyForce::class)->make()->toArray();
 
-        $updatedSafetyForce = $this->safetyForceRepo->update($fakeSafetyForce, $safetyForce->id);
+        $updated = $this->safetyRepo->update($fake, $safetyForce->id);
 
-        $this->assertModelData($fakeSafetyForce, $updatedSafetyForce->toArray());
-        $dbSafetyForce = $this->safetyForceRepo->find($safetyForce->id);
-        $this->assertModelData($fakeSafetyForce, $dbSafetyForce->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $database = $this->safetyRepo->find($safetyForce->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**
@@ -72,9 +72,9 @@ class SafetyForceRepositoryTest extends TestCase
     {
         $safetyForce = factory(SafetyForce::class)->create();
 
-        $resp = $this->safetyForceRepo->delete($safetyForce->id);
+        $resp = $this->safetyRepo->delete($safetyForce->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(SafetyForce::find($safetyForce->id), 'SafetyForce should not exist in DB');
+        $this->assertNull((new SafetyForce)->find($safetyForce->id), 'SafetyForce should not exist in DB');
     }
 }

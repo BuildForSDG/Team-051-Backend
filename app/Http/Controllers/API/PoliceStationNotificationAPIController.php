@@ -18,11 +18,11 @@ use Response;
 class PoliceStationNotificationAPIController extends AppBaseController
 {
     /** @var  PoliceStationNotificationRepository */
-    private $policeStationNotificationRepository;
+    private $notificationRepo;
 
-    public function __construct(PoliceStationNotificationRepository $policeStationNotificationRepo)
+    public function __construct(PoliceStationNotificationRepository $notificationRepo)
     {
-        $this->policeStationNotificationRepository = $policeStationNotificationRepo;
+        $this->notificationRepo = $notificationRepo;
     }
 
     /**
@@ -34,13 +34,13 @@ class PoliceStationNotificationAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $policeStationNotifications = $this->policeStationNotificationRepository->all(
+        $notifications = $this->notificationRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($policeStationNotifications->toArray(), 'Police Station Notifications retrieved successfully');
+        return $this->sendResponse($notifications->toArray(), 'Police Station Notifications retrieved successfully');
     }
 
     /**
@@ -55,76 +55,76 @@ class PoliceStationNotificationAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $policeStationNotification = $this->policeStationNotificationRepository->create($input);
+        $notification = $this->notificationRepo->create($input);
 
-        return $this->sendResponse($policeStationNotification->toArray(), 'Police Station Notification saved successfully');
+        return $this->sendResponse($notification->toArray(), 'Police Station Notification saved successfully');
     }
 
     /**
      * Display the specified PoliceStationNotification.
      * GET|HEAD /policeStationNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($notification_id)
     {
-        /** @var PoliceStationNotification $policeStationNotification */
-        $policeStationNotification = $this->policeStationNotificationRepository->find($id);
+        /** @var PoliceStationNotification $notification */
+        $notification = $this->notificationRepo->find($notification_id);
 
-        if (empty($policeStationNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Police Station Notification not found');
         }
 
-        return $this->sendResponse($policeStationNotification->toArray(), 'Police Station Notification retrieved successfully');
+        return $this->sendResponse($notification->toArray(), 'Police Station Notification retrieved successfully');
     }
 
     /**
      * Update the specified PoliceStationNotification in storage.
      * PUT/PATCH /policeStationNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      * @param UpdatePoliceStationNotificationAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePoliceStationNotificationAPIRequest $request)
+    public function update($notification_id, UpdatePoliceStationNotificationAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var PoliceStationNotification $policeStationNotification */
-        $policeStationNotification = $this->policeStationNotificationRepository->find($id);
+        /** @var PoliceStationNotification $notification */
+        $notification = $this->notificationRepo->find($notification_id);
 
-        if (empty($policeStationNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Police Station Notification not found');
         }
 
-        $policeStationNotification = $this->policeStationNotificationRepository->update($input, $id);
+        $notification = $this->notificationRepo->update($input, $notification_id);
 
-        return $this->sendResponse($policeStationNotification->toArray(), 'PoliceStationNotification updated successfully');
+        return $this->sendResponse($notification->toArray(), 'PoliceStationNotification updated successfully');
     }
 
     /**
      * Remove the specified PoliceStationNotification from storage.
      * DELETE /policeStationNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($notification_id)
     {
-        /** @var PoliceStationNotification $policeStationNotification */
-        $policeStationNotification = $this->policeStationNotificationRepository->find($id);
+        /** @var PoliceStationNotification $notification */
+        $notification = $this->notificationRepo->find($notification_id);
 
-        if (empty($policeStationNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Police Station Notification not found');
         }
 
-        $policeStationNotification->delete();
+        $notification->delete();
 
         return $this->sendSuccess('Police Station Notification deleted successfully');
     }

@@ -18,7 +18,7 @@ class PanicRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->panicRepo = \App::make(PanicRepository::class);
+        $this->panicRepo = app(PanicRepository::class);
     }
 
     /**
@@ -33,7 +33,7 @@ class PanicRepositoryTest extends TestCase
         $createdPanic = $createdPanic->toArray();
         $this->assertArrayHasKey('id', $createdPanic);
         $this->assertNotNull($createdPanic['id'], 'Created Panic must have id specified');
-        $this->assertNotNull(Panic::find($createdPanic['id']), 'Panic with given id must be in DB');
+        $this->assertNotNull((new Panic)->find($createdPanic['id']), 'Panic with given id must be in DB');
         $this->assertModelData($panic, $createdPanic);
     }
 
@@ -75,6 +75,6 @@ class PanicRepositoryTest extends TestCase
         $resp = $this->panicRepo->delete($panic->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Panic::find($panic->id), 'Panic should not exist in DB');
+        $this->assertNull((new Panic)->find($panic->id), 'Panic should not exist in DB');
     }
 }

@@ -64,14 +64,14 @@ class FailedJobAPIController extends AppBaseController
      * Display the specified FailedJob.
      * GET|HEAD /failedJobs/{id}
      *
-     * @param int $id
+     * @param int $failed_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($failed_id)
     {
         /** @var FailedJob $failedJob */
-        $failedJob = $this->failedJobRepository->find($id);
+        $failedJob = $this->failedJobRepository->find($failed_id);
 
         if (empty($failedJob)) {
             return $this->sendError('Failed Job not found');
@@ -84,23 +84,23 @@ class FailedJobAPIController extends AppBaseController
      * Update the specified FailedJob in storage.
      * PUT/PATCH /failedJobs/{id}
      *
-     * @param int $id
+     * @param int $failed_id
      * @param UpdateFailedJobAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateFailedJobAPIRequest $request)
+    public function update($failed_id, UpdateFailedJobAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var FailedJob $failedJob */
-        $failedJob = $this->failedJobRepository->find($id);
+        $failedJob = $this->failedJobRepository->find($failed_id);
 
         if (empty($failedJob)) {
             return $this->sendError('Failed Job not found');
         }
 
-        $failedJob = $this->failedJobRepository->update($input, $id);
+        $failedJob = $this->failedJobRepository->update($input, $failed_id);
 
         return $this->sendResponse($failedJob->toArray(), 'FailedJob updated successfully');
     }
@@ -109,16 +109,16 @@ class FailedJobAPIController extends AppBaseController
      * Remove the specified FailedJob from storage.
      * DELETE /failedJobs/{id}
      *
-     * @param int $id
+     * @param int $failed_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($failed_id)
     {
         /** @var FailedJob $failedJob */
-        $failedJob = $this->failedJobRepository->find($id);
+        $failedJob = $this->failedJobRepository->find($failed_id);
 
         if (empty($failedJob)) {
             return $this->sendError('Failed Job not found');

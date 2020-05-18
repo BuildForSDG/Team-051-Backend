@@ -11,18 +11,18 @@ class TowerNotificationApiTest extends TestCase
     use ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
 
     /**
-     * @test
+     * @group api_test_create_tower_notification
      */
     public function test_create_tower_notification()
     {
-        $towerNotification = factory(TowerNotification::class)->make()->toArray();
+        $notification = factory(TowerNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'POST',
-            '/api/tower-notifications', $towerNotification
+            '/api/tower-notifications', $notification
         );
 
-        $this->assertApiResponse($towerNotification);
+        $this->assertApiResponse($notification);
     }
 
     /**
@@ -30,14 +30,14 @@ class TowerNotificationApiTest extends TestCase
      */
     public function test_read_tower_notification()
     {
-        $towerNotification = factory(TowerNotification::class)->create();
+        $notification = factory(TowerNotification::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/tower-notifications/'.$towerNotification->id
+            '/api/tower-notifications/'.$notification->id
         );
 
-        $this->assertApiResponse($towerNotification->toArray());
+        $this->assertApiResponse($notification->toArray());
     }
 
     /**
@@ -45,16 +45,16 @@ class TowerNotificationApiTest extends TestCase
      */
     public function test_update_tower_notification()
     {
-        $towerNotification = factory(TowerNotification::class)->create();
-        $editedTowerNotification = factory(TowerNotification::class)->make()->toArray();
+        $notification = factory(TowerNotification::class)->create();
+        $edited = factory(TowerNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
-            '/api/tower-notifications/'.$towerNotification->id,
-            $editedTowerNotification
+            '/api/tower-notifications/'.$notification->id,
+            $edited
         );
 
-        $this->assertApiResponse($editedTowerNotification);
+        $this->assertApiResponse($edited);
     }
 
     /**
@@ -62,17 +62,17 @@ class TowerNotificationApiTest extends TestCase
      */
     public function test_delete_tower_notification()
     {
-        $towerNotification = factory(TowerNotification::class)->create();
+        $notification = factory(TowerNotification::class)->create();
 
         $this->response = $this->json(
             'DELETE',
-             '/api/tower-notifications/'.$towerNotification->id
+             '/api/tower-notifications/'.$notification->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/tower-notifications/'.$towerNotification->id
+            '/api/tower-notifications/'.$notification->id
         );
 
         $this->response->assertStatus(404);

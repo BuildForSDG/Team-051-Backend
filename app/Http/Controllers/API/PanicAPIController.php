@@ -64,14 +64,14 @@ class PanicAPIController extends AppBaseController
      * Display the specified Panic.
      * GET|HEAD /panics/{id}
      *
-     * @param int $id
+     * @param int $panic_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($panic_id)
     {
         /** @var Panic $panic */
-        $panic = $this->panicRepository->find($id);
+        $panic = $this->panicRepository->find($panic_id);
 
         if (empty($panic)) {
             return $this->sendError('Panic not found');
@@ -84,23 +84,23 @@ class PanicAPIController extends AppBaseController
      * Update the specified Panic in storage.
      * PUT/PATCH /panics/{id}
      *
-     * @param int $id
+     * @param int $panic_id
      * @param UpdatePanicAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePanicAPIRequest $request)
+    public function update($panic_id, UpdatePanicAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Panic $panic */
-        $panic = $this->panicRepository->find($id);
+        $panic = $this->panicRepository->find($panic_id);
 
         if (empty($panic)) {
             return $this->sendError('Panic not found');
         }
 
-        $panic = $this->panicRepository->update($input, $id);
+        $panic = $this->panicRepository->update($input, $panic_id);
 
         return $this->sendResponse($panic->toArray(), 'Panic updated successfully');
     }
@@ -109,16 +109,16 @@ class PanicAPIController extends AppBaseController
      * Remove the specified Panic from storage.
      * DELETE /panics/{id}
      *
-     * @param int $id
+     * @param int $panic_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($panic_id)
     {
         /** @var Panic $panic */
-        $panic = $this->panicRepository->find($id);
+        $panic = $this->panicRepository->find($panic_id);
 
         if (empty($panic)) {
             return $this->sendError('Panic not found');

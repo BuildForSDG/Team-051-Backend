@@ -18,11 +18,11 @@ use Response;
 class TowResponseAPIController extends AppBaseController
 {
     /** @var  TowResponseRepository */
-    private $towResponseRepository;
+    private $towRepo;
 
-    public function __construct(TowResponseRepository $towResponseRepo)
+    public function __construct(TowResponseRepository $towRepo)
     {
-        $this->towResponseRepository = $towResponseRepo;
+        $this->towRepo = $towRepo;
     }
 
     /**
@@ -34,7 +34,7 @@ class TowResponseAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $towResponses = $this->towResponseRepository->all(
+        $towResponses = $this->towRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
@@ -55,7 +55,7 @@ class TowResponseAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $towResponse = $this->towResponseRepository->create($input);
+        $towResponse = $this->towRepo->create($input);
 
         return $this->sendResponse($towResponse->toArray(), 'Tow Response saved successfully');
     }
@@ -64,14 +64,14 @@ class TowResponseAPIController extends AppBaseController
      * Display the specified TowResponse.
      * GET|HEAD /towResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($response_id)
     {
         /** @var TowResponse $towResponse */
-        $towResponse = $this->towResponseRepository->find($id);
+        $towResponse = $this->towRepo->find($response_id);
 
         if (empty($towResponse)) {
             return $this->sendError('Tow Response not found');
@@ -84,23 +84,23 @@ class TowResponseAPIController extends AppBaseController
      * Update the specified TowResponse in storage.
      * PUT/PATCH /towResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      * @param UpdateTowResponseAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateTowResponseAPIRequest $request)
+    public function update($response_id, UpdateTowResponseAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var TowResponse $towResponse */
-        $towResponse = $this->towResponseRepository->find($id);
+        $towResponse = $this->towRepo->find($response_id);
 
         if (empty($towResponse)) {
             return $this->sendError('Tow Response not found');
         }
 
-        $towResponse = $this->towResponseRepository->update($input, $id);
+        $towResponse = $this->towRepo->update($input, $response_id);
 
         return $this->sendResponse($towResponse->toArray(), 'TowResponse updated successfully');
     }
@@ -109,16 +109,16 @@ class TowResponseAPIController extends AppBaseController
      * Remove the specified TowResponse from storage.
      * DELETE /towResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($response_id)
     {
         /** @var TowResponse $towResponse */
-        $towResponse = $this->towResponseRepository->find($id);
+        $towResponse = $this->towRepo->find($response_id);
 
         if (empty($towResponse)) {
             return $this->sendError('Tow Response not found');

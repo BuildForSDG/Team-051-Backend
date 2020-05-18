@@ -18,7 +18,7 @@ class PickupRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->pickupRepo = \App::make(PickupRepository::class);
+        $this->pickupRepo = app(PickupRepository::class);
     }
 
     /**

@@ -15,14 +15,14 @@ class HospitalResponseApiTest extends TestCase
      */
     public function test_create_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->make()->toArray();
+        $response = factory(HospitalResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'POST',
-            '/api/hospital-responses', $hospitalResponse
+            '/api/hospital-responses', $response
         );
 
-        $this->assertApiResponse($hospitalResponse);
+        $this->assertApiResponse($response);
     }
 
     /**
@@ -30,14 +30,14 @@ class HospitalResponseApiTest extends TestCase
      */
     public function test_read_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->create();
+        $response = factory(HospitalResponse::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/hospital-responses/'.$hospitalResponse->id
+            '/api/hospital-responses/'.$response->id
         );
 
-        $this->assertApiResponse($hospitalResponse->toArray());
+        $this->assertApiResponse($response->toArray());
     }
 
     /**
@@ -45,16 +45,16 @@ class HospitalResponseApiTest extends TestCase
      */
     public function test_update_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->create();
-        $editedHospitalResponse = factory(HospitalResponse::class)->make()->toArray();
+        $response = factory(HospitalResponse::class)->create();
+        $edited = factory(HospitalResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
-            '/api/hospital-responses/'.$hospitalResponse->id,
-            $editedHospitalResponse
+            '/api/hospital-responses/'.$response->id,
+            $edited
         );
 
-        $this->assertApiResponse($editedHospitalResponse);
+        $this->assertApiResponse($edited);
     }
 
     /**
@@ -62,17 +62,17 @@ class HospitalResponseApiTest extends TestCase
      */
     public function test_delete_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->create();
+        $response = factory(HospitalResponse::class)->create();
 
         $this->response = $this->json(
             'DELETE',
-             '/api/hospital-responses/'.$hospitalResponse->id
+             '/api/hospital-responses/'.$response->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/hospital-responses/'.$hospitalResponse->id
+            '/api/hospital-responses/'.$response->id
         );
 
         $this->response->assertStatus(404);

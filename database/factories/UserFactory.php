@@ -7,12 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
         'email' => $faker->email,
         'password' => Hash::make('password'),
         'status' => $faker->randomElement(['active', 'banned', 'suspended']),
         'source' => $faker->randomElement(['form','social','admin']),
-        'remember_token' => Str::random(15)
     ];
 });

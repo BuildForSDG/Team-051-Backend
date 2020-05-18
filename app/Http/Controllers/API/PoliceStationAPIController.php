@@ -18,11 +18,11 @@ use Response;
 class PoliceStationAPIController extends AppBaseController
 {
     /** @var  PoliceStationRepository */
-    private $policeStationRepository;
+    private $policeRepo;
 
-    public function __construct(PoliceStationRepository $policeStationRepo)
+    public function __construct(PoliceStationRepository $policeRepo)
     {
-        $this->policeStationRepository = $policeStationRepo;
+        $this->policeRepo = $policeRepo;
     }
 
     /**
@@ -34,7 +34,7 @@ class PoliceStationAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $policeStations = $this->policeStationRepository->all(
+        $policeStations = $this->policeRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
@@ -55,7 +55,7 @@ class PoliceStationAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $policeStation = $this->policeStationRepository->create($input);
+        $policeStation = $this->policeRepo->create($input);
 
         return $this->sendResponse($policeStation->toArray(), 'Police Station saved successfully');
     }
@@ -64,14 +64,14 @@ class PoliceStationAPIController extends AppBaseController
      * Display the specified PoliceStation.
      * GET|HEAD /policeStations/{id}
      *
-     * @param int $id
+     * @param int $station_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($station_id)
     {
         /** @var PoliceStation $policeStation */
-        $policeStation = $this->policeStationRepository->find($id);
+        $policeStation = $this->policeRepo->find($station_id);
 
         if (empty($policeStation)) {
             return $this->sendError('Police Station not found');
@@ -84,23 +84,23 @@ class PoliceStationAPIController extends AppBaseController
      * Update the specified PoliceStation in storage.
      * PUT/PATCH /policeStations/{id}
      *
-     * @param int $id
+     * @param int $station_id
      * @param UpdatePoliceStationAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePoliceStationAPIRequest $request)
+    public function update($station_id, UpdatePoliceStationAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var PoliceStation $policeStation */
-        $policeStation = $this->policeStationRepository->find($id);
+        $policeStation = $this->policeRepo->find($station_id);
 
         if (empty($policeStation)) {
             return $this->sendError('Police Station not found');
         }
 
-        $policeStation = $this->policeStationRepository->update($input, $id);
+        $policeStation = $this->policeRepo->update($input, $station_id);
 
         return $this->sendResponse($policeStation->toArray(), 'PoliceStation updated successfully');
     }
@@ -109,16 +109,16 @@ class PoliceStationAPIController extends AppBaseController
      * Remove the specified PoliceStation from storage.
      * DELETE /policeStations/{id}
      *
-     * @param int $id
+     * @param int $station_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($station_id)
     {
         /** @var PoliceStation $policeStation */
-        $policeStation = $this->policeStationRepository->find($id);
+        $policeStation = $this->policeRepo->find($station_id);
 
         if (empty($policeStation)) {
             return $this->sendError('Police Station not found');

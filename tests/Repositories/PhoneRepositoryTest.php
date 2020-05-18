@@ -18,7 +18,7 @@ class PhoneRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->phoneRepo = \App::make(PhoneRepository::class);
+        $this->phoneRepo = app(PhoneRepository::class);
     }
 
     /**
@@ -33,7 +33,7 @@ class PhoneRepositoryTest extends TestCase
         $createdPhone = $createdPhone->toArray();
         $this->assertArrayHasKey('id', $createdPhone);
         $this->assertNotNull($createdPhone['id'], 'Created Phone must have id specified');
-        $this->assertNotNull(Phone::find($createdPhone['id']), 'Phone with given id must be in DB');
+        $this->assertNotNull((new Phone)->find($createdPhone['id']), 'Phone with given id must be in DB');
         $this->assertModelData($phone, $createdPhone);
     }
 
@@ -75,6 +75,6 @@ class PhoneRepositoryTest extends TestCase
         $resp = $this->phoneRepo->delete($phone->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Phone::find($phone->id), 'Phone should not exist in DB');
+        $this->assertNull((new Phone)->find($phone->id), 'Phone should not exist in DB');
     }
 }

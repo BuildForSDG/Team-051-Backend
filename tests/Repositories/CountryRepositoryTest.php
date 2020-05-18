@@ -18,7 +18,7 @@ class CountryRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->countryRepo = \App::make(CountryRepository::class);
+        $this->countryRepo = app(CountryRepository::class);
     }
 
     /**
@@ -33,7 +33,7 @@ class CountryRepositoryTest extends TestCase
         $createdCountry = $createdCountry->toArray();
         $this->assertArrayHasKey('id', $createdCountry);
         $this->assertNotNull($createdCountry['id'], 'Created Country must have id specified');
-        $this->assertNotNull(Country::find($createdCountry['id']), 'Country with given id must be in DB');
+        $this->assertNotNull((new Country)->find($createdCountry['id']), 'Country with given id must be in DB');
         $this->assertModelData($country, $createdCountry);
     }
 
@@ -75,6 +75,6 @@ class CountryRepositoryTest extends TestCase
         $resp = $this->countryRepo->delete($country->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Country::find($country->id), 'Country should not exist in DB');
+        $this->assertNull((new Country)->find($country->id), 'Country should not exist in DB');
     }
 }

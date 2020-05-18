@@ -18,11 +18,11 @@ use Response;
 class UserNotificationAPIController extends AppBaseController
 {
     /** @var  UserNotificationRepository */
-    private $userNotificationRepository;
+    private $notificationRepo;
 
-    public function __construct(UserNotificationRepository $userNotificationRepo)
+    public function __construct(UserNotificationRepository $notificationRepo)
     {
-        $this->userNotificationRepository = $userNotificationRepo;
+        $this->notificationRepo = $notificationRepo;
     }
 
     /**
@@ -34,13 +34,13 @@ class UserNotificationAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $userNotifications = $this->userNotificationRepository->all(
+        $notifications = $this->notificationRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($userNotifications->toArray(), 'User Notifications retrieved successfully');
+        return $this->sendResponse($notifications->toArray(), 'User Notifications retrieved successfully');
     }
 
     /**
@@ -55,76 +55,76 @@ class UserNotificationAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $userNotification = $this->userNotificationRepository->create($input);
+        $notification = $this->notificationRepo->create($input);
 
-        return $this->sendResponse($userNotification->toArray(), 'User Notification saved successfully');
+        return $this->sendResponse($notification->toArray(), 'User Notification saved successfully');
     }
 
     /**
      * Display the specified UserNotification.
      * GET|HEAD /userNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($notification_id)
     {
-        /** @var UserNotification $userNotification */
-        $userNotification = $this->userNotificationRepository->find($id);
+        /** @var UserNotification $notification */
+        $notification = $this->notificationRepo->find($notification_id);
 
-        if (empty($userNotification)) {
+        if (empty($notification)) {
             return $this->sendError('User Notification not found');
         }
 
-        return $this->sendResponse($userNotification->toArray(), 'User Notification retrieved successfully');
+        return $this->sendResponse($notification->toArray(), 'User Notification retrieved successfully');
     }
 
     /**
      * Update the specified UserNotification in storage.
      * PUT/PATCH /userNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      * @param UpdateUserNotificationAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateUserNotificationAPIRequest $request)
+    public function update($notification_id, UpdateUserNotificationAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var UserNotification $userNotification */
-        $userNotification = $this->userNotificationRepository->find($id);
+        /** @var UserNotification $notification */
+        $notification = $this->notificationRepo->find($notification_id);
 
-        if (empty($userNotification)) {
+        if (empty($notification)) {
             return $this->sendError('User Notification not found');
         }
 
-        $userNotification = $this->userNotificationRepository->update($input, $id);
+        $notification = $this->notificationRepo->update($input, $notification_id);
 
-        return $this->sendResponse($userNotification->toArray(), 'UserNotification updated successfully');
+        return $this->sendResponse($notification->toArray(), 'UserNotification updated successfully');
     }
 
     /**
      * Remove the specified UserNotification from storage.
      * DELETE /userNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($notification_id)
     {
-        /** @var UserNotification $userNotification */
-        $userNotification = $this->userNotificationRepository->find($id);
+        /** @var UserNotification $notification */
+        $notification = $this->notificationRepo->find($notification_id);
 
-        if (empty($userNotification)) {
+        if (empty($notification)) {
             return $this->sendError('User Notification not found');
         }
 
-        $userNotification->delete();
+        $notification->delete();
 
         return $this->sendSuccess('User Notification deleted successfully');
     }

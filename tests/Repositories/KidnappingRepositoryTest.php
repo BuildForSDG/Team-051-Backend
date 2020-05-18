@@ -18,7 +18,7 @@ class KidnappingRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->kidnappingRepo = \App::make(KidnappingRepository::class);
+        $this->kidnappingRepo = app(KidnappingRepository::class);
     }
 
     /**
@@ -28,13 +28,13 @@ class KidnappingRepositoryTest extends TestCase
     {
         $kidnapping = factory(Kidnapping::class)->make()->toArray();
 
-        $createdKidnapping = $this->kidnappingRepo->create($kidnapping);
+        $created = $this->kidnappingRepo->create($kidnapping);
 
-        $createdKidnapping = $createdKidnapping->toArray();
-        $this->assertArrayHasKey('id', $createdKidnapping);
-        $this->assertNotNull($createdKidnapping['id'], 'Created Kidnapping must have id specified');
-        $this->assertNotNull(Kidnapping::find($createdKidnapping['id']), 'Kidnapping with given id must be in DB');
-        $this->assertModelData($kidnapping, $createdKidnapping);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created Kidnapping must have id specified');
+        $this->assertNotNull((new Kidnapping)->find($created['id']), 'Kidnapping with given id must be in DB');
+        $this->assertModelData($kidnapping, $created);
     }
 
     /**
@@ -44,10 +44,10 @@ class KidnappingRepositoryTest extends TestCase
     {
         $kidnapping = factory(Kidnapping::class)->create();
 
-        $dbKidnapping = $this->kidnappingRepo->find($kidnapping->id);
+        $database = $this->kidnappingRepo->find($kidnapping->id);
 
-        $dbKidnapping = $dbKidnapping->toArray();
-        $this->assertModelData($kidnapping->toArray(), $dbKidnapping);
+        $database = $database ->toArray();
+        $this->assertModelData($kidnapping->toArray(), $database);
     }
 
     /**
@@ -56,13 +56,13 @@ class KidnappingRepositoryTest extends TestCase
     public function test_update_kidnapping()
     {
         $kidnapping = factory(Kidnapping::class)->create();
-        $fakeKidnapping = factory(Kidnapping::class)->make()->toArray();
+        $fake = factory(Kidnapping::class)->make()->toArray();
 
-        $updatedKidnapping = $this->kidnappingRepo->update($fakeKidnapping, $kidnapping->id);
+        $updated = $this->kidnappingRepo->update($fake, $kidnapping->id);
 
-        $this->assertModelData($fakeKidnapping, $updatedKidnapping->toArray());
-        $dbKidnapping = $this->kidnappingRepo->find($kidnapping->id);
-        $this->assertModelData($fakeKidnapping, $dbKidnapping->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $database = $this->kidnappingRepo->find($kidnapping->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**
@@ -75,6 +75,6 @@ class KidnappingRepositoryTest extends TestCase
         $resp = $this->kidnappingRepo->delete($kidnapping->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Kidnapping::find($kidnapping->id), 'Kidnapping should not exist in DB');
+        $this->assertNull((new Kidnapping)->find($kidnapping->id), 'Kidnapping should not exist in DB');
     }
 }

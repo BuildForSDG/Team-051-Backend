@@ -64,14 +64,14 @@ class TowerAPIController extends AppBaseController
      * Display the specified Tower.
      * GET|HEAD /towers/{id}
      *
-     * @param int $id
+     * @param int $tower_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($tower_id)
     {
         /** @var Tower $tower */
-        $tower = $this->towerRepository->find($id);
+        $tower = $this->towerRepository->find($tower_id);
 
         if (empty($tower)) {
             return $this->sendError('Tower not found');
@@ -84,23 +84,23 @@ class TowerAPIController extends AppBaseController
      * Update the specified Tower in storage.
      * PUT/PATCH /towers/{id}
      *
-     * @param int $id
+     * @param int $tower_id
      * @param UpdateTowerAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateTowerAPIRequest $request)
+    public function update($tower_id, UpdateTowerAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Tower $tower */
-        $tower = $this->towerRepository->find($id);
+        $tower = $this->towerRepository->find($tower_id);
 
         if (empty($tower)) {
             return $this->sendError('Tower not found');
         }
 
-        $tower = $this->towerRepository->update($input, $id);
+        $tower = $this->towerRepository->update($input, $tower_id);
 
         return $this->sendResponse($tower->toArray(), 'Tower updated successfully');
     }
@@ -109,16 +109,16 @@ class TowerAPIController extends AppBaseController
      * Remove the specified Tower from storage.
      * DELETE /towers/{id}
      *
-     * @param int $id
+     * @param int $tower_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($tower_id)
     {
         /** @var Tower $tower */
-        $tower = $this->towerRepository->find($id);
+        $tower = $this->towerRepository->find($tower_id);
 
         if (empty($tower)) {
             return $this->sendError('Tower not found');

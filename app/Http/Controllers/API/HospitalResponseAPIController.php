@@ -17,12 +17,12 @@ use Response;
 
 class HospitalResponseAPIController extends AppBaseController
 {
-    /** @var  HospitalResponseRepository */
-    private $hospitalResponseRepository;
+    /** @var  HospitalRepo */
+    private $hospitalRepo;
 
-    public function __construct(HospitalResponseRepository $hospitalResponseRepo)
+    public function __construct(HospitalResponseRepository $hospitalRepo)
     {
-        $this->hospitalResponseRepository = $hospitalResponseRepo;
+        $this->hospitalRepo = $hospitalRepo;
     }
 
     /**
@@ -34,13 +34,13 @@ class HospitalResponseAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $hospitalResponses = $this->hospitalResponseRepository->all(
+        $responses = $this->hospitalRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($hospitalResponses->toArray(), 'Hospital Responses retrieved successfully');
+        return $this->sendResponse($responses->toArray(), 'Hospital Responses retrieved successfully');
     }
 
     /**
@@ -55,76 +55,76 @@ class HospitalResponseAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $hospitalResponse = $this->hospitalResponseRepository->create($input);
+        $response = $this->hospitalRepo->create($input);
 
-        return $this->sendResponse($hospitalResponse->toArray(), 'Hospital Response saved successfully');
+        return $this->sendResponse($response->toArray(), 'Hospital Response saved successfully');
     }
 
     /**
      * Display the specified HospitalResponse.
      * GET|HEAD /hospitalResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($response_id)
     {
-        /** @var HospitalResponse $hospitalResponse */
-        $hospitalResponse = $this->hospitalResponseRepository->find($id);
+        /** @var HospitalResponse $response */
+        $response = $this->hospitalRepo->find($response_id);
 
-        if (empty($hospitalResponse)) {
+        if (empty($response)) {
             return $this->sendError('Hospital Response not found');
         }
 
-        return $this->sendResponse($hospitalResponse->toArray(), 'Hospital Response retrieved successfully');
+        return $this->sendResponse($response->toArray(), 'Hospital Response retrieved successfully');
     }
 
     /**
      * Update the specified HospitalResponse in storage.
      * PUT/PATCH /hospitalResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      * @param UpdateHospitalResponseAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateHospitalResponseAPIRequest $request)
+    public function update($response_id, UpdateHospitalResponseAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var HospitalResponse $hospitalResponse */
-        $hospitalResponse = $this->hospitalResponseRepository->find($id);
+        /** @var HospitalResponse $response */
+        $response = $this->hospitalRepo->find($response_id);
 
-        if (empty($hospitalResponse)) {
+        if (empty($response)) {
             return $this->sendError('Hospital Response not found');
         }
 
-        $hospitalResponse = $this->hospitalResponseRepository->update($input, $id);
+        $response = $this->hospitalRepo->update($input, $response_id);
 
-        return $this->sendResponse($hospitalResponse->toArray(), 'HospitalResponse updated successfully');
+        return $this->sendResponse($response->toArray(), 'HospitalResponse updated successfully');
     }
 
     /**
      * Remove the specified HospitalResponse from storage.
      * DELETE /hospitalResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($response_id)
     {
-        /** @var HospitalResponse $hospitalResponse */
-        $hospitalResponse = $this->hospitalResponseRepository->find($id);
+        /** @var HospitalResponse $response */
+        $response = $this->hospitalRepo->find($response_id);
 
-        if (empty($hospitalResponse)) {
+        if (empty($response)) {
             return $this->sendError('Hospital Response not found');
         }
 
-        $hospitalResponse->delete();
+        $response->delete();
 
         return $this->sendSuccess('Hospital Response deleted successfully');
     }

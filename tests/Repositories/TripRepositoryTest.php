@@ -18,7 +18,7 @@ class TripRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->tripRepo = \App::make(TripRepository::class);
+        $this->tripRepo = app(TripRepository::class);
     }
 
     /**

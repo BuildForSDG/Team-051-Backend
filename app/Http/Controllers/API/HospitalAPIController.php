@@ -64,14 +64,14 @@ class HospitalAPIController extends AppBaseController
      * Display the specified Hospital.
      * GET|HEAD /hospitals/{id}
      *
-     * @param int $id
+     * @param int $hospital_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($hospital_id)
     {
         /** @var Hospital $hospital */
-        $hospital = $this->hospitalRepository->find($id);
+        $hospital = $this->hospitalRepository->find($hospital_id);
 
         if (empty($hospital)) {
             return $this->sendError('Hospital not found');
@@ -84,23 +84,23 @@ class HospitalAPIController extends AppBaseController
      * Update the specified Hospital in storage.
      * PUT/PATCH /hospitals/{id}
      *
-     * @param int $id
+     * @param int $hospital_id
      * @param UpdateHospitalAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateHospitalAPIRequest $request)
+    public function update($hospital_id, UpdateHospitalAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Hospital $hospital */
-        $hospital = $this->hospitalRepository->find($id);
+        $hospital = $this->hospitalRepository->find($hospital_id);
 
         if (empty($hospital)) {
             return $this->sendError('Hospital not found');
         }
 
-        $hospital = $this->hospitalRepository->update($input, $id);
+        $hospital = $this->hospitalRepository->update($input, $hospital_id);
 
         return $this->sendResponse($hospital->toArray(), 'Hospital updated successfully');
     }
@@ -109,16 +109,16 @@ class HospitalAPIController extends AppBaseController
      * Remove the specified Hospital from storage.
      * DELETE /hospitals/{id}
      *
-     * @param int $id
+     * @param int $hospital_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($hospital_id)
     {
         /** @var Hospital $hospital */
-        $hospital = $this->hospitalRepository->find($id);
+        $hospital = $this->hospitalRepository->find($hospital_id);
 
         if (empty($hospital)) {
             return $this->sendError('Hospital not found');

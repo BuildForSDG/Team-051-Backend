@@ -13,12 +13,12 @@ class PoliceResponseRepositoryTest extends TestCase
     /**
      * @var PoliceResponseRepository
      */
-    protected $policeResponseRepo;
+    protected $policeRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->policeResponseRepo = \App::make(PoliceResponseRepository::class);
+        $this->policeRepo = app(PoliceResponseRepository::class);
     }
 
     /**
@@ -28,13 +28,13 @@ class PoliceResponseRepositoryTest extends TestCase
     {
         $policeResponse = factory(PoliceResponse::class)->make()->toArray();
 
-        $createdPoliceResponse = $this->policeResponseRepo->create($policeResponse);
+        $created = $this->policeRepo->create($policeResponse);
 
-        $createdPoliceResponse = $createdPoliceResponse->toArray();
-        $this->assertArrayHasKey('id', $createdPoliceResponse);
-        $this->assertNotNull($createdPoliceResponse['id'], 'Created PoliceResponse must have id specified');
-        $this->assertNotNull(PoliceResponse::find($createdPoliceResponse['id']), 'PoliceResponse with given id must be in DB');
-        $this->assertModelData($policeResponse, $createdPoliceResponse);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created PoliceResponse must have id specified');
+        $this->assertNotNull((new PoliceResponse)->find($created['id']), 'PoliceResponse with given id must be in DB');
+        $this->assertModelData($policeResponse, $created);
     }
 
     /**
@@ -44,7 +44,7 @@ class PoliceResponseRepositoryTest extends TestCase
     {
         $policeResponse = factory(PoliceResponse::class)->create();
 
-        $dbPoliceResponse = $this->policeResponseRepo->find($policeResponse->id);
+        $dbPoliceResponse = $this->policeRepo->find($policeResponse->id);
 
         $dbPoliceResponse = $dbPoliceResponse->toArray();
         $this->assertModelData($policeResponse->toArray(), $dbPoliceResponse);
@@ -56,13 +56,13 @@ class PoliceResponseRepositoryTest extends TestCase
     public function test_update_police_response()
     {
         $policeResponse = factory(PoliceResponse::class)->create();
-        $fakePoliceResponse = factory(PoliceResponse::class)->make()->toArray();
+        $fake = factory(PoliceResponse::class)->make()->toArray();
 
-        $updatedPoliceResponse = $this->policeResponseRepo->update($fakePoliceResponse, $policeResponse->id);
+        $updated = $this->policeRepo->update($fake, $policeResponse->id);
 
-        $this->assertModelData($fakePoliceResponse, $updatedPoliceResponse->toArray());
-        $dbPoliceResponse = $this->policeResponseRepo->find($policeResponse->id);
-        $this->assertModelData($fakePoliceResponse, $dbPoliceResponse->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $database = $this->policeRepo->find($policeResponse->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**
@@ -72,9 +72,9 @@ class PoliceResponseRepositoryTest extends TestCase
     {
         $policeResponse = factory(PoliceResponse::class)->create();
 
-        $resp = $this->policeResponseRepo->delete($policeResponse->id);
+        $resp = $this->policeRepo->delete($policeResponse->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(PoliceResponse::find($policeResponse->id), 'PoliceResponse should not exist in DB');
+        $this->assertNull((new PoliceResponse)->find($policeResponse->id), 'PoliceResponse should not exist in DB');
     }
 }

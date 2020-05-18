@@ -18,7 +18,7 @@ class AccidentRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->accidentRepo = \App::make(AccidentRepository::class);
+        $this->accidentRepo = app(AccidentRepository::class);
     }
 
     /**
@@ -33,7 +33,7 @@ class AccidentRepositoryTest extends TestCase
         $createdAccident = $createdAccident->toArray();
         $this->assertArrayHasKey('id', $createdAccident);
         $this->assertNotNull($createdAccident['id'], 'Created Accident must have id specified');
-        $this->assertNotNull(Accident::find($createdAccident['id']), 'Accident with given id must be in DB');
+        $this->assertNotNull((new Accident)->find($createdAccident['id']), 'Accident with given id must be in DB');
         $this->assertModelData($accident, $createdAccident);
     }
 
@@ -75,6 +75,6 @@ class AccidentRepositoryTest extends TestCase
         $resp = $this->accidentRepo->delete($accident->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Accident::find($accident->id), 'Accident should not exist in DB');
+        $this->assertNull((new Accident)->find($accident->id), 'Accident should not exist in DB');
     }
 }

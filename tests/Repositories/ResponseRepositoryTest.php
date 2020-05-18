@@ -18,7 +18,7 @@ class ResponseRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->responseRepo = \App::make(ResponseRepository::class);
+        $this->responseRepo = app(ResponseRepository::class);
     }
 
     /**
@@ -28,13 +28,13 @@ class ResponseRepositoryTest extends TestCase
     {
         $response = factory(Response::class)->make()->toArray();
 
-        $createdResponse = $this->responseRepo->create($response);
+        $created = $this->responseRepo->create($response);
 
-        $createdResponse = $createdResponse->toArray();
-        $this->assertArrayHasKey('id', $createdResponse);
-        $this->assertNotNull($createdResponse['id'], 'Created Response must have id specified');
-        $this->assertNotNull(Response::find($createdResponse['id']), 'Response with given id must be in DB');
-        $this->assertModelData($response, $createdResponse);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created Response must have id specified');
+        $this->assertNotNull((new Response)->find($created['id']), 'Response with given id must be in DB');
+        $this->assertModelData($response, $created);
     }
 
     /**
@@ -44,10 +44,10 @@ class ResponseRepositoryTest extends TestCase
     {
         $response = factory(Response::class)->create();
 
-        $dbResponse = $this->responseRepo->find($response->id);
+        $database = $this->responseRepo->find($response->id);
 
-        $dbResponse = $dbResponse->toArray();
-        $this->assertModelData($response->toArray(), $dbResponse);
+        $database = $database ->toArray();
+        $this->assertModelData($response->toArray(), $database);
     }
 
     /**
@@ -56,13 +56,13 @@ class ResponseRepositoryTest extends TestCase
     public function test_update_response()
     {
         $response = factory(Response::class)->create();
-        $fakeResponse = factory(Response::class)->make()->toArray();
+        $fake = factory(Response::class)->make()->toArray();
 
-        $updatedResponse = $this->responseRepo->update($fakeResponse, $response->id);
+        $updated = $this->responseRepo->update($fake, $response->id);
 
-        $this->assertModelData($fakeResponse, $updatedResponse->toArray());
-        $dbResponse = $this->responseRepo->find($response->id);
-        $this->assertModelData($fakeResponse, $dbResponse->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $database = $this->responseRepo->find($response->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**
@@ -75,6 +75,6 @@ class ResponseRepositoryTest extends TestCase
         $resp = $this->responseRepo->delete($response->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Response::find($response->id), 'Response should not exist in DB');
+        $this->assertNull((new Response)->find($response->id), 'Response should not exist in DB');
     }
 }

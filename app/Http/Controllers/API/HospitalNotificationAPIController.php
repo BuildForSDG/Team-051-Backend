@@ -17,12 +17,12 @@ use Response;
 
 class HospitalNotificationAPIController extends AppBaseController
 {
-    /** @var  HospitalNotificationRepository */
-    private $hospitalNotificationRepository;
+    /** @var  HospitalRepo */
+    private $hospitalRepo;
 
-    public function __construct(HospitalNotificationRepository $hospitalNotificationRepo)
+    public function __construct(HospitalNotificationRepository $hospitalRepo)
     {
-        $this->hospitalNotificationRepository = $hospitalNotificationRepo;
+        $this->hospitalRepo = $hospitalRepo;
     }
 
     /**
@@ -34,13 +34,13 @@ class HospitalNotificationAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $hospitalNotifications = $this->hospitalNotificationRepository->all(
+        $notifications = $this->hospitalRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($hospitalNotifications->toArray(), 'Hospital Notifications retrieved successfully');
+        return $this->sendResponse($notifications->toArray(), 'Hospital Notifications retrieved successfully');
     }
 
     /**
@@ -55,76 +55,76 @@ class HospitalNotificationAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $hospitalNotification = $this->hospitalNotificationRepository->create($input);
+        $notification = $this->hospitalRepo->create($input);
 
-        return $this->sendResponse($hospitalNotification->toArray(), 'Hospital Notification saved successfully');
+        return $this->sendResponse($notification->toArray(), 'Hospital Notification saved successfully');
     }
 
     /**
      * Display the specified HospitalNotification.
      * GET|HEAD /hospitalNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($notification_id)
     {
-        /** @var HospitalNotification $hospitalNotification */
-        $hospitalNotification = $this->hospitalNotificationRepository->find($id);
+        /** @var HospitalNotification $notification */
+        $notification = $this->hospitalRepo->find($notification_id);
 
-        if (empty($hospitalNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Hospital Notification not found');
         }
 
-        return $this->sendResponse($hospitalNotification->toArray(), 'Hospital Notification retrieved successfully');
+        return $this->sendResponse($notification->toArray(), 'Hospital Notification retrieved successfully');
     }
 
     /**
      * Update the specified HospitalNotification in storage.
      * PUT/PATCH /hospitalNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      * @param UpdateHospitalNotificationAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateHospitalNotificationAPIRequest $request)
+    public function update($notification_id, UpdateHospitalNotificationAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var HospitalNotification $hospitalNotification */
-        $hospitalNotification = $this->hospitalNotificationRepository->find($id);
+        /** @var HospitalNotification $notification */
+        $notification = $this->hospitalRepo->find($notification_id);
 
-        if (empty($hospitalNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Hospital Notification not found');
         }
 
-        $hospitalNotification = $this->hospitalNotificationRepository->update($input, $id);
+        $notification = $this->hospitalRepo->update($input, $notification_id);
 
-        return $this->sendResponse($hospitalNotification->toArray(), 'HospitalNotification updated successfully');
+        return $this->sendResponse($notification->toArray(), 'HospitalNotification updated successfully');
     }
 
     /**
      * Remove the specified HospitalNotification from storage.
      * DELETE /hospitalNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($notification_id)
     {
-        /** @var HospitalNotification $hospitalNotification */
-        $hospitalNotification = $this->hospitalNotificationRepository->find($id);
+        /** @var HospitalNotification $notification */
+        $notification = $this->hospitalRepo->find($notification_id);
 
-        if (empty($hospitalNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Hospital Notification not found');
         }
 
-        $hospitalNotification->delete();
+        $notification->delete();
 
         return $this->sendSuccess('Hospital Notification deleted successfully');
     }

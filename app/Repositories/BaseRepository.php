@@ -95,11 +95,17 @@ abstract class BaseRepository
             }
         }
 
-        if (!is_null($skip)) {
+//        if (!is_null($skip)) {
+//            $query->skip($skip);
+//        }
+        if ($skip !== null) {
             $query->skip($skip);
         }
 
-        if (!is_null($limit)) {
+//        if (!is_null($limit)) {
+//            $query->limit($limit);
+//        }
+        if ($limit !== null) {
             $query->limit($limit);
         }
 
@@ -142,31 +148,31 @@ abstract class BaseRepository
     /**
      * Find model record for given id
      *
-     * @param int $id
+     * @param int $repo_id
      * @param array $columns
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model|null
      */
-    public function find($id, $columns = ['*'])
+    public function find($repo_id, $columns = ['*'])
     {
         $query = $this->model->newQuery();
 
-        return $query->find($id, $columns);
+        return $query->find($repo_id, $columns);
     }
 
     /**
      * Update model record for given id
      *
      * @param array $input
-     * @param int $id
+     * @param int $repo_id
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|Model
      */
-    public function update($input, $id)
+    public function update($input, $repo_id)
     {
         $query = $this->model->newQuery();
 
-        $model = $query->findOrFail($id);
+        $model = $query->findOrFail($repo_id);
 
         $model->fill($input);
 
@@ -176,17 +182,17 @@ abstract class BaseRepository
     }
 
     /**
-     * @param int $id
+     * @param int $repo_id
      *
      * @throws \Exception
      *
      * @return bool|mixed|null
      */
-    public function delete($id)
+    public function delete($repo_id)
     {
         $query = $this->model->newQuery();
 
-        $model = $query->findOrFail($id);
+        $model = $query->findOrFail($repo_id);
 
         return $model->delete();
     }

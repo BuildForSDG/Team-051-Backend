@@ -64,14 +64,14 @@ class TripAPIController extends AppBaseController
      * Display the specified Trip.
      * GET|HEAD /trips/{id}
      *
-     * @param int $id
+     * @param int $trip_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($trip_id)
     {
         /** @var Trip $trip */
-        $trip = $this->tripRepository->find($id);
+        $trip = $this->tripRepository->find($trip_id);
 
         if (empty($trip)) {
             return $this->sendError('Trip not found');
@@ -84,23 +84,23 @@ class TripAPIController extends AppBaseController
      * Update the specified Trip in storage.
      * PUT/PATCH /trips/{id}
      *
-     * @param int $id
+     * @param int $trip_id
      * @param UpdateTripAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateTripAPIRequest $request)
+    public function update($trip_id, UpdateTripAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Trip $trip */
-        $trip = $this->tripRepository->find($id);
+        $trip = $this->tripRepository->find($trip_id);
 
         if (empty($trip)) {
             return $this->sendError('Trip not found');
         }
 
-        $trip = $this->tripRepository->update($input, $id);
+        $trip = $this->tripRepository->update($input, $trip_id);
 
         return $this->sendResponse($trip->toArray(), 'Trip updated successfully');
     }
@@ -109,16 +109,16 @@ class TripAPIController extends AppBaseController
      * Remove the specified Trip from storage.
      * DELETE /trips/{id}
      *
-     * @param int $id
+     * @param int $trip_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($trip_id)
     {
         /** @var Trip $trip */
-        $trip = $this->tripRepository->find($id);
+        $trip = $this->tripRepository->find($trip_id);
 
         if (empty($trip)) {
             return $this->sendError('Trip not found');

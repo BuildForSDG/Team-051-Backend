@@ -64,14 +64,14 @@ class BreakdownAPIController extends AppBaseController
      * Display the specified Breakdown.
      * GET|HEAD /breakdowns/{id}
      *
-     * @param int $id
+     * @param int $breakdown_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($breakdown_id)
     {
         /** @var Breakdown $breakdown */
-        $breakdown = $this->breakdownRepository->find($id);
+        $breakdown = $this->breakdownRepository->find($breakdown_id);
 
         if (empty($breakdown)) {
             return $this->sendError('Breakdown not found');
@@ -84,23 +84,23 @@ class BreakdownAPIController extends AppBaseController
      * Update the specified Breakdown in storage.
      * PUT/PATCH /breakdowns/{id}
      *
-     * @param int $id
+     * @param int $breakdown_id
      * @param UpdateBreakdownAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateBreakdownAPIRequest $request)
+    public function update($breakdown_id, UpdateBreakdownAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Breakdown $breakdown */
-        $breakdown = $this->breakdownRepository->find($id);
+        $breakdown = $this->breakdownRepository->find($breakdown_id);
 
         if (empty($breakdown)) {
             return $this->sendError('Breakdown not found');
         }
 
-        $breakdown = $this->breakdownRepository->update($input, $id);
+        $breakdown = $this->breakdownRepository->update($input, $breakdown_id);
 
         return $this->sendResponse($breakdown->toArray(), 'Breakdown updated successfully');
     }
@@ -109,16 +109,16 @@ class BreakdownAPIController extends AppBaseController
      * Remove the specified Breakdown from storage.
      * DELETE /breakdowns/{id}
      *
-     * @param int $id
+     * @param int $breakdown_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($breakdown_id)
     {
         /** @var Breakdown $breakdown */
-        $breakdown = $this->breakdownRepository->find($id);
+        $breakdown = $this->breakdownRepository->find($breakdown_id);
 
         if (empty($breakdown)) {
             return $this->sendError('Breakdown not found');

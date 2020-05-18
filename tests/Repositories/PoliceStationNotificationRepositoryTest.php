@@ -13,12 +13,12 @@ class PoliceStationNotificationRepositoryTest extends TestCase
     /**
      * @var PoliceStationNotificationRepository
      */
-    protected $policeStationNotificationRepo;
+    protected $notificationRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->policeStationNotificationRepo = \App::make(PoliceStationNotificationRepository::class);
+        $this->notificationRepo = app(PoliceStationNotificationRepository::class);
     }
 
     /**
@@ -26,15 +26,15 @@ class PoliceStationNotificationRepositoryTest extends TestCase
      */
     public function test_create_police_station_notification()
     {
-        $policeStationNotification = factory(PoliceStationNotification::class)->make()->toArray();
+        $notification = factory(PoliceStationNotification::class)->make()->toArray();
 
-        $createdPoliceStationNotification = $this->policeStationNotificationRepo->create($policeStationNotification);
+        $created = $this->notificationRepo->create($notification);
 
-        $createdPoliceStationNotification = $createdPoliceStationNotification->toArray();
-        $this->assertArrayHasKey('id', $createdPoliceStationNotification);
-        $this->assertNotNull($createdPoliceStationNotification['id'], 'Created PoliceStationNotification must have id specified');
-        $this->assertNotNull(PoliceStationNotification::find($createdPoliceStationNotification['id']), 'PoliceStationNotification with given id must be in DB');
-        $this->assertModelData($policeStationNotification, $createdPoliceStationNotification);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created PoliceStationNotification must have id specified');
+        $this->assertNotNull((new PoliceStationNotification)->find($created['id']), 'PoliceStationNotification with given id must be in DB');
+        $this->assertModelData($notification, $created);
     }
 
     /**
@@ -42,12 +42,12 @@ class PoliceStationNotificationRepositoryTest extends TestCase
      */
     public function test_read_police_station_notification()
     {
-        $policeStationNotification = factory(PoliceStationNotification::class)->create();
+        $notification = factory(PoliceStationNotification::class)->create();
 
-        $dbPoliceStationNotification = $this->policeStationNotificationRepo->find($policeStationNotification->id);
+        $database = $this->notificationRepo->find($notification->id);
 
-        $dbPoliceStationNotification = $dbPoliceStationNotification->toArray();
-        $this->assertModelData($policeStationNotification->toArray(), $dbPoliceStationNotification);
+        $database = $database ->toArray();
+        $this->assertModelData($notification->toArray(), $database);
     }
 
     /**
@@ -55,14 +55,14 @@ class PoliceStationNotificationRepositoryTest extends TestCase
      */
     public function test_update_police_station_notification()
     {
-        $policeStationNotification = factory(PoliceStationNotification::class)->create();
-        $fakePoliceStationNotification = factory(PoliceStationNotification::class)->make()->toArray();
+        $notification = factory(PoliceStationNotification::class)->create();
+        $fake = factory(PoliceStationNotification::class)->make()->toArray();
 
-        $updatedPoliceStationNotification = $this->policeStationNotificationRepo->update($fakePoliceStationNotification, $policeStationNotification->id);
+        $updated = $this->notificationRepo->update($fake, $notification->id);
 
-        $this->assertModelData($fakePoliceStationNotification, $updatedPoliceStationNotification->toArray());
-        $dbPoliceStationNotification = $this->policeStationNotificationRepo->find($policeStationNotification->id);
-        $this->assertModelData($fakePoliceStationNotification, $dbPoliceStationNotification->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $database = $this->notificationRepo->find($notification->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**
@@ -70,11 +70,11 @@ class PoliceStationNotificationRepositoryTest extends TestCase
      */
     public function test_delete_police_station_notification()
     {
-        $policeStationNotification = factory(PoliceStationNotification::class)->create();
+        $notification = factory(PoliceStationNotification::class)->create();
 
-        $resp = $this->policeStationNotificationRepo->delete($policeStationNotification->id);
+        $resp = $this->notificationRepo->delete($notification->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(PoliceStationNotification::find($policeStationNotification->id), 'PoliceStationNotification should not exist in DB');
+        $this->assertNull((new PoliceStationNotification)->find($notification->id), 'PoliceStationNotification should not exist in DB');
     }
 }

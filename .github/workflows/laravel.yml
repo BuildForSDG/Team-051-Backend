@@ -2,7 +2,7 @@ name: Team-051-Banckend
 
 on:
   push:
-    branches: [ develop, bg-fix-heroku-deploy ]
+    branches: [ develop ]
   pull_request:
     branches: [ develop ]
 
@@ -30,7 +30,6 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
   deploy:
-    if: github.ref == 'develop'
     needs: testing
     runs-on: ubuntu-18.04
     steps:
