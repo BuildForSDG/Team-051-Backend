@@ -64,14 +64,14 @@ class KidnappingAPIController extends AppBaseController
      * Display the specified Kidnapping.
      * GET|HEAD /kidnappings/{id}
      *
-     * @param int $id
+     * @param int $kidnapping_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($kidnapping_id)
     {
         /** @var Kidnapping $kidnapping */
-        $kidnapping = $this->kidnappingRepository->find($id);
+        $kidnapping = $this->kidnappingRepository->find($kidnapping_id);
 
         if (empty($kidnapping)) {
             return $this->sendError('Kidnapping not found');
@@ -84,23 +84,23 @@ class KidnappingAPIController extends AppBaseController
      * Update the specified Kidnapping in storage.
      * PUT/PATCH /kidnappings/{id}
      *
-     * @param int $id
+     * @param int $kidnapping_id
      * @param UpdateKidnappingAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateKidnappingAPIRequest $request)
+    public function update($kidnapping_id, UpdateKidnappingAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Kidnapping $kidnapping */
-        $kidnapping = $this->kidnappingRepository->find($id);
+        $kidnapping = $this->kidnappingRepository->find($kidnapping_id);
 
         if (empty($kidnapping)) {
             return $this->sendError('Kidnapping not found');
         }
 
-        $kidnapping = $this->kidnappingRepository->update($input, $id);
+        $kidnapping = $this->kidnappingRepository->update($input, $kidnapping_id);
 
         return $this->sendResponse($kidnapping->toArray(), 'Kidnapping updated successfully');
     }
@@ -109,16 +109,16 @@ class KidnappingAPIController extends AppBaseController
      * Remove the specified Kidnapping from storage.
      * DELETE /kidnappings/{id}
      *
-     * @param int $id
+     * @param int $kidnapping_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($kidnapping_id)
     {
         /** @var Kidnapping $kidnapping */
-        $kidnapping = $this->kidnappingRepository->find($id);
+        $kidnapping = $this->kidnappingRepository->find($kidnapping_id);
 
         if (empty($kidnapping)) {
             return $this->sendError('Kidnapping not found');

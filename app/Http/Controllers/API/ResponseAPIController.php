@@ -64,14 +64,14 @@ class ResponseAPIController extends AppBaseController
      * Display the specified Response.
      * GET|HEAD /responses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($response_id)
     {
         /** @var Response $response */
-        $response = $this->responseRepository->find($id);
+        $response = $this->responseRepository->find($response_id);
 
         if (empty($response)) {
             return $this->sendError('Response not found');
@@ -84,23 +84,23 @@ class ResponseAPIController extends AppBaseController
      * Update the specified Response in storage.
      * PUT/PATCH /responses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      * @param UpdateResponseAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateResponseAPIRequest $request)
+    public function update($response_id, UpdateResponseAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Response $response */
-        $response = $this->responseRepository->find($id);
+        $response = $this->responseRepository->find($response_id);
 
         if (empty($response)) {
             return $this->sendError('Response not found');
         }
 
-        $response = $this->responseRepository->update($input, $id);
+        $response = $this->responseRepository->update($input, $response_id);
 
         return $this->sendResponse($response->toArray(), 'Response updated successfully');
     }
@@ -109,16 +109,16 @@ class ResponseAPIController extends AppBaseController
      * Remove the specified Response from storage.
      * DELETE /responses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($response_id)
     {
         /** @var Response $response */
-        $response = $this->responseRepository->find($id);
+        $response = $this->responseRepository->find($response_id);
 
         if (empty($response)) {
             return $this->sendError('Response not found');

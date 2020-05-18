@@ -13,12 +13,12 @@ class TowResponseRepositoryTest extends TestCase
     /**
      * @var TowResponseRepository
      */
-    protected $towResponseRepo;
+    protected $towRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->towResponseRepo = \App::make(TowResponseRepository::class);
+        $this->towRepo = \App::make(TowResponseRepository::class);
     }
 
     /**
@@ -28,13 +28,13 @@ class TowResponseRepositoryTest extends TestCase
     {
         $towResponse = factory(TowResponse::class)->make()->toArray();
 
-        $createdTowResponse = $this->towResponseRepo->create($towResponse);
+        $created = $this->towRepo->create($towResponse);
 
-        $createdTowResponse = $createdTowResponse->toArray();
-        $this->assertArrayHasKey('id', $createdTowResponse);
-        $this->assertNotNull($createdTowResponse['id'], 'Created TowResponse must have id specified');
-        $this->assertNotNull(TowResponse::find($createdTowResponse['id']), 'TowResponse with given id must be in DB');
-        $this->assertModelData($towResponse, $createdTowResponse);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created TowResponse must have id specified');
+        $this->assertNotNull(TowResponse::find($created['id']), 'TowResponse with given id must be in DB');
+        $this->assertModelData($towResponse, $created);
     }
 
     /**
@@ -44,10 +44,10 @@ class TowResponseRepositoryTest extends TestCase
     {
         $towResponse = factory(TowResponse::class)->create();
 
-        $dbTowResponse = $this->towResponseRepo->find($towResponse->id);
+        $db = $this->towRepo->find($towResponse->id);
 
-        $dbTowResponse = $dbTowResponse->toArray();
-        $this->assertModelData($towResponse->toArray(), $dbTowResponse);
+        $db = $db->toArray();
+        $this->assertModelData($towResponse->toArray(), $db);
     }
 
     /**
@@ -56,13 +56,13 @@ class TowResponseRepositoryTest extends TestCase
     public function test_update_tow_response()
     {
         $towResponse = factory(TowResponse::class)->create();
-        $fakeTowResponse = factory(TowResponse::class)->make()->toArray();
+        $fake = factory(TowResponse::class)->make()->toArray();
 
-        $updatedTowResponse = $this->towResponseRepo->update($fakeTowResponse, $towResponse->id);
+        $updated = $this->towRepo->update($fake, $towResponse->id);
 
-        $this->assertModelData($fakeTowResponse, $updatedTowResponse->toArray());
-        $dbTowResponse = $this->towResponseRepo->find($towResponse->id);
-        $this->assertModelData($fakeTowResponse, $dbTowResponse->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $db = $this->towRepo->find($towResponse->id);
+        $this->assertModelData($fake, $db->toArray());
     }
 
     /**
@@ -72,7 +72,7 @@ class TowResponseRepositoryTest extends TestCase
     {
         $towResponse = factory(TowResponse::class)->create();
 
-        $resp = $this->towResponseRepo->delete($towResponse->id);
+        $resp = $this->towRepo->delete($towResponse->id);
 
         $this->assertTrue($resp);
         $this->assertNull(TowResponse::find($towResponse->id), 'TowResponse should not exist in DB');

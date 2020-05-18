@@ -18,11 +18,11 @@ use Response;
 class PoliceResponseAPIController extends AppBaseController
 {
     /** @var  PoliceResponseRepository */
-    private $policeResponseRepository;
+    private $policeRepo;
 
-    public function __construct(PoliceResponseRepository $policeResponseRepo)
+    public function __construct(PoliceResponseRepository $policeRepo)
     {
-        $this->policeResponseRepository = $policeResponseRepo;
+        $this->policeRepo = $policeRepo;
     }
 
     /**
@@ -34,13 +34,13 @@ class PoliceResponseAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $policeResponses = $this->policeResponseRepository->all(
+        $responses = $this->policeRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($policeResponses->toArray(), 'Police Responses retrieved successfully');
+        return $this->sendResponse($responses->toArray(), 'Police Responses retrieved successfully');
     }
 
     /**
@@ -55,76 +55,76 @@ class PoliceResponseAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $policeResponse = $this->policeResponseRepository->create($input);
+        $response = $this->policeRepo->create($input);
 
-        return $this->sendResponse($policeResponse->toArray(), 'Police Response saved successfully');
+        return $this->sendResponse($response->toArray(), 'Police Response saved successfully');
     }
 
     /**
      * Display the specified PoliceResponse.
      * GET|HEAD /policeResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($response_id)
     {
-        /** @var PoliceResponse $policeResponse */
-        $policeResponse = $this->policeResponseRepository->find($id);
+        /** @var PoliceResponse $response */
+        $response = $this->policeRepo->find($response_id);
 
-        if (empty($policeResponse)) {
+        if (empty($response)) {
             return $this->sendError('Police Response not found');
         }
 
-        return $this->sendResponse($policeResponse->toArray(), 'Police Response retrieved successfully');
+        return $this->sendResponse($response->toArray(), 'Police Response retrieved successfully');
     }
 
     /**
      * Update the specified PoliceResponse in storage.
      * PUT/PATCH /policeResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      * @param UpdatePoliceResponseAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePoliceResponseAPIRequest $request)
+    public function update($response_id, UpdatePoliceResponseAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var PoliceResponse $policeResponse */
-        $policeResponse = $this->policeResponseRepository->find($id);
+        /** @var PoliceResponse $response */
+        $response = $this->policeRepo->find($response_id);
 
-        if (empty($policeResponse)) {
+        if (empty($response)) {
             return $this->sendError('Police Response not found');
         }
 
-        $policeResponse = $this->policeResponseRepository->update($input, $id);
+        $response = $this->policeRepo->update($input, $response_id);
 
-        return $this->sendResponse($policeResponse->toArray(), 'PoliceResponse updated successfully');
+        return $this->sendResponse($response->toArray(), 'PoliceResponse updated successfully');
     }
 
     /**
      * Remove the specified PoliceResponse from storage.
      * DELETE /policeResponses/{id}
      *
-     * @param int $id
+     * @param int $response_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($response_id)
     {
-        /** @var PoliceResponse $policeResponse */
-        $policeResponse = $this->policeResponseRepository->find($id);
+        /** @var PoliceResponse $response */
+        $response = $this->policeRepo->find($response_id);
 
-        if (empty($policeResponse)) {
+        if (empty($response)) {
             return $this->sendError('Police Response not found');
         }
 
-        $policeResponse->delete();
+        $response->delete();
 
         return $this->sendSuccess('Police Response deleted successfully');
     }

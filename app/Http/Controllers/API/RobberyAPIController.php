@@ -64,14 +64,14 @@ class RobberyAPIController extends AppBaseController
      * Display the specified Robbery.
      * GET|HEAD /robberies/{id}
      *
-     * @param int $id
+     * @param int $robbery_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($robbery_id)
     {
         /** @var Robbery $robbery */
-        $robbery = $this->robberyRepository->find($id);
+        $robbery = $this->robberyRepository->find($robbery_id);
 
         if (empty($robbery)) {
             return $this->sendError('Robbery not found');
@@ -84,23 +84,23 @@ class RobberyAPIController extends AppBaseController
      * Update the specified Robbery in storage.
      * PUT/PATCH /robberies/{id}
      *
-     * @param int $id
+     * @param int $robbery_id
      * @param UpdateRobberyAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateRobberyAPIRequest $request)
+    public function update($robbery_id, UpdateRobberyAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Robbery $robbery */
-        $robbery = $this->robberyRepository->find($id);
+        $robbery = $this->robberyRepository->find($robbery_id);
 
         if (empty($robbery)) {
             return $this->sendError('Robbery not found');
         }
 
-        $robbery = $this->robberyRepository->update($input, $id);
+        $robbery = $this->robberyRepository->update($input, $robbery_id);
 
         return $this->sendResponse($robbery->toArray(), 'Robbery updated successfully');
     }
@@ -109,16 +109,16 @@ class RobberyAPIController extends AppBaseController
      * Remove the specified Robbery from storage.
      * DELETE /robberies/{id}
      *
-     * @param int $id
+     * @param int $robbery_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($robbery_id)
     {
         /** @var Robbery $robbery */
-        $robbery = $this->robberyRepository->find($id);
+        $robbery = $this->robberyRepository->find($robbery_id);
 
         if (empty($robbery)) {
             return $this->sendError('Robbery not found');

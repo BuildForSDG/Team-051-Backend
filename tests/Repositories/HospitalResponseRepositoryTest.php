@@ -13,12 +13,12 @@ class HospitalResponseRepositoryTest extends TestCase
     /**
      * @var HospitalResponseRepository
      */
-    protected $hospitalResponseRepo;
+    protected $hospitalRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->hospitalResponseRepo = \App::make(HospitalResponseRepository::class);
+        $this->hospitalRepo = \App::make(HospitalResponseRepository::class);
     }
 
     /**
@@ -26,15 +26,15 @@ class HospitalResponseRepositoryTest extends TestCase
      */
     public function test_create_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->make()->toArray();
+        $hospital = factory(HospitalResponse::class)->make()->toArray();
 
-        $createdHospitalResponse = $this->hospitalResponseRepo->create($hospitalResponse);
+        $created = $this->hospitalRepo->create($hospital);
 
-        $createdHospitalResponse = $createdHospitalResponse->toArray();
-        $this->assertArrayHasKey('id', $createdHospitalResponse);
-        $this->assertNotNull($createdHospitalResponse['id'], 'Created HospitalResponse must have id specified');
-        $this->assertNotNull(HospitalResponse::find($createdHospitalResponse['id']), 'HospitalResponse with given id must be in DB');
-        $this->assertModelData($hospitalResponse, $createdHospitalResponse);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created HospitalResponse must have id specified');
+        $this->assertNotNull(HospitalResponse::find($created['id']), 'HospitalResponse with given id must be in DB');
+        $this->assertModelData($hospital, $created);
     }
 
     /**
@@ -42,12 +42,12 @@ class HospitalResponseRepositoryTest extends TestCase
      */
     public function test_read_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->create();
+        $hospital = factory(HospitalResponse::class)->create();
 
-        $dbHospitalResponse = $this->hospitalResponseRepo->find($hospitalResponse->id);
+        $db = $this->hospitalRepo->find($hospital->id);
 
-        $dbHospitalResponse = $dbHospitalResponse->toArray();
-        $this->assertModelData($hospitalResponse->toArray(), $dbHospitalResponse);
+        $db = $db->toArray();
+        $this->assertModelData($hospital->toArray(), $db);
     }
 
     /**
@@ -55,14 +55,14 @@ class HospitalResponseRepositoryTest extends TestCase
      */
     public function test_update_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->create();
-        $fakeHospitalResponse = factory(HospitalResponse::class)->make()->toArray();
+        $hospital = factory(HospitalResponse::class)->create();
+        $fake = factory(HospitalResponse::class)->make()->toArray();
 
-        $updatedHospitalResponse = $this->hospitalResponseRepo->update($fakeHospitalResponse, $hospitalResponse->id);
+        $updated = $this->hospitalRepo->update($fake, $hospital->id);
 
-        $this->assertModelData($fakeHospitalResponse, $updatedHospitalResponse->toArray());
-        $dbHospitalResponse = $this->hospitalResponseRepo->find($hospitalResponse->id);
-        $this->assertModelData($fakeHospitalResponse, $dbHospitalResponse->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $db = $this->hospitalRepo->find($hospital->id);
+        $this->assertModelData($fake, $db->toArray());
     }
 
     /**
@@ -70,11 +70,11 @@ class HospitalResponseRepositoryTest extends TestCase
      */
     public function test_delete_hospital_response()
     {
-        $hospitalResponse = factory(HospitalResponse::class)->create();
+        $hospital = factory(HospitalResponse::class)->create();
 
-        $resp = $this->hospitalResponseRepo->delete($hospitalResponse->id);
+        $resp = $this->hospitalRepo->delete($hospital->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(HospitalResponse::find($hospitalResponse->id), 'HospitalResponse should not exist in DB');
+        $this->assertNull(HospitalResponse::find($hospital->id), 'HospitalResponse should not exist in DB');
     }
 }

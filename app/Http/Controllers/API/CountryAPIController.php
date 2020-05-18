@@ -64,14 +64,14 @@ class CountryAPIController extends AppBaseController
      * Display the specified Country.
      * GET|HEAD /countries/{id}
      *
-     * @param int $id
+     * @param int $country_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($country_id)
     {
         /** @var Country $country */
-        $country = $this->countryRepository->find($id);
+        $country = $this->countryRepository->find($country_id);
 
         if (empty($country)) {
             return $this->sendError('Country not found');
@@ -84,23 +84,23 @@ class CountryAPIController extends AppBaseController
      * Update the specified Country in storage.
      * PUT/PATCH /countries/{id}
      *
-     * @param int $id
+     * @param int $country_id
      * @param UpdateCountryAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateCountryAPIRequest $request)
+    public function update($country_id, UpdateCountryAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Country $country */
-        $country = $this->countryRepository->find($id);
+        $country = $this->countryRepository->find($country_id);
 
         if (empty($country)) {
             return $this->sendError('Country not found');
         }
 
-        $country = $this->countryRepository->update($input, $id);
+        $country = $this->countryRepository->update($input, $country_id);
 
         return $this->sendResponse($country->toArray(), 'Country updated successfully');
     }
@@ -109,16 +109,16 @@ class CountryAPIController extends AppBaseController
      * Remove the specified Country from storage.
      * DELETE /countries/{id}
      *
-     * @param int $id
+     * @param int $country_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($country_id)
     {
         /** @var Country $country */
-        $country = $this->countryRepository->find($id);
+        $country = $this->countryRepository->find($country_id);
 
         if (empty($country)) {
             return $this->sendError('Country not found');

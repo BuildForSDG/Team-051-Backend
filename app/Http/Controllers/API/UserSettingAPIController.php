@@ -18,11 +18,11 @@ use Response;
 class UserSettingAPIController extends AppBaseController
 {
     /** @var  UserSettingRepository */
-    private $userSettingRepository;
+    private $settingRepo;
 
-    public function __construct(UserSettingRepository $userSettingRepo)
+    public function __construct(UserSettingRepository $settingRepo)
     {
-        $this->userSettingRepository = $userSettingRepo;
+        $this->settingRepo = $settingRepo;
     }
 
     /**
@@ -34,7 +34,7 @@ class UserSettingAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $userSettings = $this->userSettingRepository->all(
+        $userSettings = $this->settingRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
@@ -55,7 +55,7 @@ class UserSettingAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $userSetting = $this->userSettingRepository->create($input);
+        $userSetting = $this->settingRepo->create($input);
 
         return $this->sendResponse($userSetting->toArray(), 'User Setting saved successfully');
     }
@@ -64,14 +64,14 @@ class UserSettingAPIController extends AppBaseController
      * Display the specified UserSetting.
      * GET|HEAD /userSettings/{id}
      *
-     * @param int $id
+     * @param int $setting_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($setting_id)
     {
         /** @var UserSetting $userSetting */
-        $userSetting = $this->userSettingRepository->find($id);
+        $userSetting = $this->settingRepo->find($setting_id);
 
         if (empty($userSetting)) {
             return $this->sendError('User Setting not found');
@@ -84,23 +84,23 @@ class UserSettingAPIController extends AppBaseController
      * Update the specified UserSetting in storage.
      * PUT/PATCH /userSettings/{id}
      *
-     * @param int $id
+     * @param int $setting_id
      * @param UpdateUserSettingAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateUserSettingAPIRequest $request)
+    public function update($setting_id, UpdateUserSettingAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var UserSetting $userSetting */
-        $userSetting = $this->userSettingRepository->find($id);
+        $userSetting = $this->settingRepo->find($setting_id);
 
         if (empty($userSetting)) {
             return $this->sendError('User Setting not found');
         }
 
-        $userSetting = $this->userSettingRepository->update($input, $id);
+        $userSetting = $this->settingRepo->update($input, $setting_id);
 
         return $this->sendResponse($userSetting->toArray(), 'UserSetting updated successfully');
     }
@@ -109,16 +109,16 @@ class UserSettingAPIController extends AppBaseController
      * Remove the specified UserSetting from storage.
      * DELETE /userSettings/{id}
      *
-     * @param int $id
+     * @param int $setting_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($setting_id)
     {
         /** @var UserSetting $userSetting */
-        $userSetting = $this->userSettingRepository->find($id);
+        $userSetting = $this->settingRepo->find($setting_id);
 
         if (empty($userSetting)) {
             return $this->sendError('User Setting not found');

@@ -64,14 +64,14 @@ class LgaAPIController extends AppBaseController
      * Display the specified Lga.
      * GET|HEAD /lgas/{id}
      *
-     * @param int $id
+     * @param int $lga_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($lga_id)
     {
         /** @var Lga $lga */
-        $lga = $this->lgaRepository->find($id);
+        $lga = $this->lgaRepository->find($lga_id);
 
         if (empty($lga)) {
             return $this->sendError('Lga not found');
@@ -84,23 +84,23 @@ class LgaAPIController extends AppBaseController
      * Update the specified Lga in storage.
      * PUT/PATCH /lgas/{id}
      *
-     * @param int $id
+     * @param int $lga_id
      * @param UpdateLgaAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateLgaAPIRequest $request)
+    public function update($lga_id, UpdateLgaAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Lga $lga */
-        $lga = $this->lgaRepository->find($id);
+        $lga = $this->lgaRepository->find($lga_id);
 
         if (empty($lga)) {
             return $this->sendError('Lga not found');
         }
 
-        $lga = $this->lgaRepository->update($input, $id);
+        $lga = $this->lgaRepository->update($input, $lga_id);
 
         return $this->sendResponse($lga->toArray(), 'Lga updated successfully');
     }
@@ -109,16 +109,16 @@ class LgaAPIController extends AppBaseController
      * Remove the specified Lga from storage.
      * DELETE /lgas/{id}
      *
-     * @param int $id
+     * @param int $lga_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($lga_id)
     {
         /** @var Lga $lga */
-        $lga = $this->lgaRepository->find($id);
+        $lga = $this->lgaRepository->find($lga_id);
 
         if (empty($lga)) {
             return $this->sendError('Lga not found');

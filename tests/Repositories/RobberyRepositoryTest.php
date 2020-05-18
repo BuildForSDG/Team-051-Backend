@@ -28,13 +28,13 @@ class RobberyRepositoryTest extends TestCase
     {
         $robbery = factory(Robbery::class)->make()->toArray();
 
-        $createdRobbery = $this->robberyRepo->create($robbery);
+        $created = $this->robberyRepo->create($robbery);
 
-        $createdRobbery = $createdRobbery->toArray();
-        $this->assertArrayHasKey('id', $createdRobbery);
-        $this->assertNotNull($createdRobbery['id'], 'Created Robbery must have id specified');
-        $this->assertNotNull(Robbery::find($createdRobbery['id']), 'Robbery with given id must be in DB');
-        $this->assertModelData($robbery, $createdRobbery);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created Robbery must have id specified');
+        $this->assertNotNull(Robbery::find($created['id']), 'Robbery with given id must be in DB');
+        $this->assertModelData($robbery, $created);
     }
 
     /**
@@ -44,10 +44,10 @@ class RobberyRepositoryTest extends TestCase
     {
         $robbery = factory(Robbery::class)->create();
 
-        $dbRobbery = $this->robberyRepo->find($robbery->id);
+        $db = $this->robberyRepo->find($robbery->id);
 
-        $dbRobbery = $dbRobbery->toArray();
-        $this->assertModelData($robbery->toArray(), $dbRobbery);
+        $db = $db->toArray();
+        $this->assertModelData($robbery->toArray(), $db);
     }
 
     /**
@@ -56,13 +56,13 @@ class RobberyRepositoryTest extends TestCase
     public function test_update_robbery()
     {
         $robbery = factory(Robbery::class)->create();
-        $fakeRobbery = factory(Robbery::class)->make()->toArray();
+        $fake = factory(Robbery::class)->make()->toArray();
 
-        $updatedRobbery = $this->robberyRepo->update($fakeRobbery, $robbery->id);
+        $updated = $this->robberyRepo->update($fake, $robbery->id);
 
-        $this->assertModelData($fakeRobbery, $updatedRobbery->toArray());
-        $dbRobbery = $this->robberyRepo->find($robbery->id);
-        $this->assertModelData($fakeRobbery, $dbRobbery->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $db = $this->robberyRepo->find($robbery->id);
+        $this->assertModelData($fake, $db->toArray());
     }
 
     /**

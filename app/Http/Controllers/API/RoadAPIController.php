@@ -64,14 +64,14 @@ class RoadAPIController extends AppBaseController
      * Display the specified Road.
      * GET|HEAD /roads/{id}
      *
-     * @param int $id
+     * @param int $road_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($road_id)
     {
         /** @var Road $road */
-        $road = $this->roadRepository->find($id);
+        $road = $this->roadRepository->find($road_id);
 
         if (empty($road)) {
             return $this->sendError('Road not found');
@@ -84,23 +84,23 @@ class RoadAPIController extends AppBaseController
      * Update the specified Road in storage.
      * PUT/PATCH /roads/{id}
      *
-     * @param int $id
+     * @param int $road_id
      * @param UpdateRoadAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateRoadAPIRequest $request)
+    public function update($road_id, UpdateRoadAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Road $road */
-        $road = $this->roadRepository->find($id);
+        $road = $this->roadRepository->find($road_id);
 
         if (empty($road)) {
             return $this->sendError('Road not found');
         }
 
-        $road = $this->roadRepository->update($input, $id);
+        $road = $this->roadRepository->update($input, $road_id);
 
         return $this->sendResponse($road->toArray(), 'Road updated successfully');
     }
@@ -109,16 +109,16 @@ class RoadAPIController extends AppBaseController
      * Remove the specified Road from storage.
      * DELETE /roads/{id}
      *
-     * @param int $id
+     * @param int $road_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($road_id)
     {
         /** @var Road $road */
-        $road = $this->roadRepository->find($id);
+        $road = $this->roadRepository->find($road_id);
 
         if (empty($road)) {
             return $this->sendError('Road not found');

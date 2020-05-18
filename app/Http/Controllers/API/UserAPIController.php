@@ -64,14 +64,14 @@ class UserAPIController extends AppBaseController
      * Display the specified User.
      * GET|HEAD /users/{id}
      *
-     * @param int $id
+     * @param int $user_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($user_id)
     {
         /** @var User $user */
-        $user = $this->userRepository->find($id);
+        $user = $this->userRepository->find($user_id);
 
         if (empty($user)) {
             return $this->sendError('User not found');
@@ -84,23 +84,23 @@ class UserAPIController extends AppBaseController
      * Update the specified User in storage.
      * PUT/PATCH /users/{id}
      *
-     * @param int $id
+     * @param int $user_id
      * @param UpdateUserAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateUserAPIRequest $request)
+    public function update($user_id, UpdateUserAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var User $user */
-        $user = $this->userRepository->find($id);
+        $user = $this->userRepository->find($user_id);
 
         if (empty($user)) {
             return $this->sendError('User not found');
         }
 
-        $user = $this->userRepository->update($input, $id);
+        $user = $this->userRepository->update($input, $user_id);
 
         return $this->sendResponse($user->toArray(), 'User updated successfully');
     }
@@ -109,16 +109,16 @@ class UserAPIController extends AppBaseController
      * Remove the specified User from storage.
      * DELETE /users/{id}
      *
-     * @param int $id
+     * @param int $user_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($user_id)
     {
         /** @var User $user */
-        $user = $this->userRepository->find($id);
+        $user = $this->userRepository->find($user_id);
 
         if (empty($user)) {
             return $this->sendError('User not found');

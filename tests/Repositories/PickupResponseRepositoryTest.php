@@ -13,12 +13,12 @@ class PickupResponseRepositoryTest extends TestCase
     /**
      * @var PickupResponseRepository
      */
-    protected $pickupResponseRepo;
+    protected $pickup;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->pickupResponseRepo = \App::make(PickupResponseRepository::class);
+        $this->pickup = \App::make(PickupResponseRepository::class);
     }
 
     /**
@@ -26,15 +26,15 @@ class PickupResponseRepositoryTest extends TestCase
      */
     public function test_create_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->make()->toArray();
+        $pickup = factory(PickupResponse::class)->make()->toArray();
 
-        $createdPickupResponse = $this->pickupResponseRepo->create($pickupResponse);
+        $created = $this->pickup->create($pickup);
 
-        $createdPickupResponse = $createdPickupResponse->toArray();
-        $this->assertArrayHasKey('id', $createdPickupResponse);
-        $this->assertNotNull($createdPickupResponse['id'], 'Created PickupResponse must have id specified');
-        $this->assertNotNull(PickupResponse::find($createdPickupResponse['id']), 'PickupResponse with given id must be in DB');
-        $this->assertModelData($pickupResponse, $createdPickupResponse);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created PickupResponse must have id specified');
+        $this->assertNotNull(PickupResponse::find($created['id']), 'PickupResponse with given id must be in DB');
+        $this->assertModelData($pickup, $created);
     }
 
     /**
@@ -42,12 +42,12 @@ class PickupResponseRepositoryTest extends TestCase
      */
     public function test_read_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->create();
+        $pickup = factory(PickupResponse::class)->create();
 
-        $dbPickupResponse = $this->pickupResponseRepo->find($pickupResponse->id);
+        $db = $this->pickup->find($pickup->id);
 
-        $dbPickupResponse = $dbPickupResponse->toArray();
-        $this->assertModelData($pickupResponse->toArray(), $dbPickupResponse);
+        $db = $db->toArray();
+        $this->assertModelData($pickup->toArray(), $db);
     }
 
     /**
@@ -55,14 +55,14 @@ class PickupResponseRepositoryTest extends TestCase
      */
     public function test_update_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->create();
-        $fakePickupResponse = factory(PickupResponse::class)->make()->toArray();
+        $pickup = factory(PickupResponse::class)->create();
+        $fake = factory(PickupResponse::class)->make()->toArray();
 
-        $updatedPickupResponse = $this->pickupResponseRepo->update($fakePickupResponse, $pickupResponse->id);
+        $updated = $this->pickup->update($fake, $pickup->id);
 
-        $this->assertModelData($fakePickupResponse, $updatedPickupResponse->toArray());
-        $dbPickupResponse = $this->pickupResponseRepo->find($pickupResponse->id);
-        $this->assertModelData($fakePickupResponse, $dbPickupResponse->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $db = $this->pickup->find($pickup->id);
+        $this->assertModelData($fake, $db->toArray());
     }
 
     /**
@@ -70,11 +70,11 @@ class PickupResponseRepositoryTest extends TestCase
      */
     public function test_delete_pickup_response()
     {
-        $pickupResponse = factory(PickupResponse::class)->create();
+        $pickup = factory(PickupResponse::class)->create();
 
-        $resp = $this->pickupResponseRepo->delete($pickupResponse->id);
+        $resp = $this->pickup->delete($pickup->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(PickupResponse::find($pickupResponse->id), 'PickupResponse should not exist in DB');
+        $this->assertNull(PickupResponse::find($pickup->id), 'PickupResponse should not exist in DB');
     }
 }

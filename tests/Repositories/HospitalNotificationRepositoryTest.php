@@ -13,12 +13,12 @@ class HospitalNotificationRepositoryTest extends TestCase
     /**
      * @var HospitalNotificationRepository
      */
-    protected $hospitalNotificationRepo;
+    protected $notificationRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->hospitalNotificationRepo = \App::make(HospitalNotificationRepository::class);
+        $this->notificationRepo = \App::make(HospitalNotificationRepository::class);
     }
 
     /**
@@ -26,15 +26,15 @@ class HospitalNotificationRepositoryTest extends TestCase
      */
     public function test_create_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->make()->toArray();
+        $notification = factory(HospitalNotification::class)->make()->toArray();
 
-        $createdHospitalNotification = $this->hospitalNotificationRepo->create($hospitalNotification);
+        $created = $this->notificationRepo->create($notification);
 
-        $createdHospitalNotification = $createdHospitalNotification->toArray();
-        $this->assertArrayHasKey('id', $createdHospitalNotification);
-        $this->assertNotNull($createdHospitalNotification['id'], 'Created HospitalNotification must have id specified');
-        $this->assertNotNull(HospitalNotification::find($createdHospitalNotification['id']), 'HospitalNotification with given id must be in DB');
-        $this->assertModelData($hospitalNotification, $createdHospitalNotification);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created HospitalNotification must have id specified');
+        $this->assertNotNull(HospitalNotification::find($created['id']), 'HospitalNotification with given id must be in DB');
+        $this->assertModelData($notification, $created);
     }
 
     /**
@@ -42,12 +42,12 @@ class HospitalNotificationRepositoryTest extends TestCase
      */
     public function test_read_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->create();
+        $notification = factory(HospitalNotification::class)->create();
 
-        $dbHospitalNotification = $this->hospitalNotificationRepo->find($hospitalNotification->id);
+        $db = $this->notificationRepo->find($notification->id);
 
-        $dbHospitalNotification = $dbHospitalNotification->toArray();
-        $this->assertModelData($hospitalNotification->toArray(), $dbHospitalNotification);
+        $db = $db->toArray();
+        $this->assertModelData($notification->toArray(), $db);
     }
 
     /**
@@ -55,14 +55,14 @@ class HospitalNotificationRepositoryTest extends TestCase
      */
     public function test_update_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->create();
-        $fakeHospitalNotification = factory(HospitalNotification::class)->make()->toArray();
+        $notification = factory(HospitalNotification::class)->create();
+        $fake = factory(HospitalNotification::class)->make()->toArray();
 
-        $updatedHospitalNotification = $this->hospitalNotificationRepo->update($fakeHospitalNotification, $hospitalNotification->id);
+        $updated = $this->notificationRepo->update($fake, $notification->id);
 
-        $this->assertModelData($fakeHospitalNotification, $updatedHospitalNotification->toArray());
-        $dbHospitalNotification = $this->hospitalNotificationRepo->find($hospitalNotification->id);
-        $this->assertModelData($fakeHospitalNotification, $dbHospitalNotification->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $db = $this->notificationRepo->find($notification->id);
+        $this->assertModelData($fake, $db->toArray());
     }
 
     /**
@@ -70,11 +70,11 @@ class HospitalNotificationRepositoryTest extends TestCase
      */
     public function test_delete_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->create();
+        $notification = factory(HospitalNotification::class)->create();
 
-        $resp = $this->hospitalNotificationRepo->delete($hospitalNotification->id);
+        $resp = $this->notificationRepo->delete($notification->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(HospitalNotification::find($hospitalNotification->id), 'HospitalNotification should not exist in DB');
+        $this->assertNull(HospitalNotification::find($notification->id), 'HospitalNotification should not exist in DB');
     }
 }

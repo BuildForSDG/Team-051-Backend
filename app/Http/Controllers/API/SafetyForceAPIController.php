@@ -64,14 +64,14 @@ class SafetyForceAPIController extends AppBaseController
      * Display the specified SafetyForce.
      * GET|HEAD /safetyForces/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($safety_id)
     {
         /** @var SafetyForce $safetyForce */
-        $safetyForce = $this->safetyForceRepository->find($id);
+        $safetyForce = $this->safetyForceRepository->find($safety_id);
 
         if (empty($safetyForce)) {
             return $this->sendError('Safety Force not found');
@@ -84,23 +84,23 @@ class SafetyForceAPIController extends AppBaseController
      * Update the specified SafetyForce in storage.
      * PUT/PATCH /safetyForces/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      * @param UpdateSafetyForceAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateSafetyForceAPIRequest $request)
+    public function update($safety_id, UpdateSafetyForceAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var SafetyForce $safetyForce */
-        $safetyForce = $this->safetyForceRepository->find($id);
+        $safetyForce = $this->safetyForceRepository->find($safety_id);
 
         if (empty($safetyForce)) {
             return $this->sendError('Safety Force not found');
         }
 
-        $safetyForce = $this->safetyForceRepository->update($input, $id);
+        $safetyForce = $this->safetyForceRepository->update($input, $safety_id);
 
         return $this->sendResponse($safetyForce->toArray(), 'SafetyForce updated successfully');
     }
@@ -109,16 +109,16 @@ class SafetyForceAPIController extends AppBaseController
      * Remove the specified SafetyForce from storage.
      * DELETE /safetyForces/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($safety_id)
     {
         /** @var SafetyForce $safetyForce */
-        $safetyForce = $this->safetyForceRepository->find($id);
+        $safetyForce = $this->safetyForceRepository->find($safety_id);
 
         if (empty($safetyForce)) {
             return $this->sendError('Safety Force not found');

@@ -64,14 +64,14 @@ class IncidentAPIController extends AppBaseController
      * Display the specified Incident.
      * GET|HEAD /incidents/{id}
      *
-     * @param int $id
+     * @param int $incident_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($incident_id)
     {
         /** @var Incident $incident */
-        $incident = $this->incidentRepository->find($id);
+        $incident = $this->incidentRepository->find($incident_id);
 
         if (empty($incident)) {
             return $this->sendError('Incident not found');
@@ -84,23 +84,23 @@ class IncidentAPIController extends AppBaseController
      * Update the specified Incident in storage.
      * PUT/PATCH /incidents/{id}
      *
-     * @param int $id
+     * @param int $incident_id
      * @param UpdateIncidentAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateIncidentAPIRequest $request)
+    public function update($incident_id, UpdateIncidentAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Incident $incident */
-        $incident = $this->incidentRepository->find($id);
+        $incident = $this->incidentRepository->find($incident_id);
 
         if (empty($incident)) {
             return $this->sendError('Incident not found');
         }
 
-        $incident = $this->incidentRepository->update($input, $id);
+        $incident = $this->incidentRepository->update($input, $incident_id);
 
         return $this->sendResponse($incident->toArray(), 'Incident updated successfully');
     }
@@ -109,16 +109,16 @@ class IncidentAPIController extends AppBaseController
      * Remove the specified Incident from storage.
      * DELETE /incidents/{id}
      *
-     * @param int $id
+     * @param int $incident_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($incident_id)
     {
         /** @var Incident $incident */
-        $incident = $this->incidentRepository->find($id);
+        $incident = $this->incidentRepository->find($incident_id);
 
         if (empty($incident)) {
             return $this->sendError('Incident not found');

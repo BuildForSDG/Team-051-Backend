@@ -18,11 +18,11 @@ use Response;
 class TowerNotificationAPIController extends AppBaseController
 {
     /** @var  TowerNotificationRepository */
-    private $towerNotificationRepository;
+    private $towerRepo;
 
-    public function __construct(TowerNotificationRepository $towerNotificationRepo)
+    public function __construct(TowerNotificationRepository $towerRepo)
     {
-        $this->towerNotificationRepository = $towerNotificationRepo;
+        $this->towerRepo = $towerRepo;
     }
 
     /**
@@ -34,13 +34,13 @@ class TowerNotificationAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $towerNotifications = $this->towerNotificationRepository->all(
+        $notifications = $this->towerRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($towerNotifications->toArray(), 'Tower Notifications retrieved successfully');
+        return $this->sendResponse($notifications->toArray(), 'Tower Notifications retrieved successfully');
     }
 
     /**
@@ -55,76 +55,76 @@ class TowerNotificationAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $towerNotification = $this->towerNotificationRepository->create($input);
+        $notification = $this->towerRepo->create($input);
 
-        return $this->sendResponse($towerNotification->toArray(), 'Tower Notification saved successfully');
+        return $this->sendResponse($notification->toArray(), 'Tower Notification saved successfully');
     }
 
     /**
      * Display the specified TowerNotification.
      * GET|HEAD /towerNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($notification_id)
     {
-        /** @var TowerNotification $towerNotification */
-        $towerNotification = $this->towerNotificationRepository->find($id);
+        /** @var TowerNotification $notification */
+        $notification = $this->towerRepo->find($notification_id);
 
-        if (empty($towerNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Tower Notification not found');
         }
 
-        return $this->sendResponse($towerNotification->toArray(), 'Tower Notification retrieved successfully');
+        return $this->sendResponse($notification->toArray(), 'Tower Notification retrieved successfully');
     }
 
     /**
      * Update the specified TowerNotification in storage.
      * PUT/PATCH /towerNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      * @param UpdateTowerNotificationAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateTowerNotificationAPIRequest $request)
+    public function update($notification_id, UpdateTowerNotificationAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var TowerNotification $towerNotification */
-        $towerNotification = $this->towerNotificationRepository->find($id);
+        /** @var TowerNotification $notification */
+        $notification = $this->towerRepo->find($notification_id);
 
-        if (empty($towerNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Tower Notification not found');
         }
 
-        $towerNotification = $this->towerNotificationRepository->update($input, $id);
+        $notification = $this->towerRepo->update($input, $notification_id);
 
-        return $this->sendResponse($towerNotification->toArray(), 'TowerNotification updated successfully');
+        return $this->sendResponse($notification->toArray(), 'TowerNotification updated successfully');
     }
 
     /**
      * Remove the specified TowerNotification from storage.
      * DELETE /towerNotifications/{id}
      *
-     * @param int $id
+     * @param int $notification_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($notification_id)
     {
-        /** @var TowerNotification $towerNotification */
-        $towerNotification = $this->towerNotificationRepository->find($id);
+        /** @var TowerNotification $notification */
+        $notification = $this->towerRepo->find($notification_id);
 
-        if (empty($towerNotification)) {
+        if (empty($notification)) {
             return $this->sendError('Tower Notification not found');
         }
 
-        $towerNotification->delete();
+        $notification->delete();
 
         return $this->sendSuccess('Tower Notification deleted successfully');
     }

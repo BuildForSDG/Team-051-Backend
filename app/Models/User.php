@@ -82,6 +82,4 @@ class User extends Authenticatable
         'status' => 'required',
         'source' => 'required'
     ];
-
-
 }

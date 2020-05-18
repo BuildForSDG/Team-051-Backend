@@ -13,12 +13,12 @@ class TowerNotificationRepositoryTest extends TestCase
     /**
      * @var TowerNotificationRepository
      */
-    protected $towerNotificationRepo;
+    protected $towerRepo;
 
     public function setUp() : void
     {
         parent::setUp();
-        $this->towerNotificationRepo = \App::make(TowerNotificationRepository::class);
+        $this->towerRepo = \App::make(TowerNotificationRepository::class);
     }
 
     /**
@@ -28,13 +28,13 @@ class TowerNotificationRepositoryTest extends TestCase
     {
         $towerNotification = factory(TowerNotification::class)->make()->toArray();
 
-        $createdTowerNotification = $this->towerNotificationRepo->create($towerNotification);
+        $created = $this->towerRepo->create($towerNotification);
 
-        $createdTowerNotification = $createdTowerNotification->toArray();
-        $this->assertArrayHasKey('id', $createdTowerNotification);
-        $this->assertNotNull($createdTowerNotification['id'], 'Created TowerNotification must have id specified');
-        $this->assertNotNull(TowerNotification::find($createdTowerNotification['id']), 'TowerNotification with given id must be in DB');
-        $this->assertModelData($towerNotification, $createdTowerNotification);
+        $created = $created->toArray();
+        $this->assertArrayHasKey('id', $created);
+        $this->assertNotNull($created['id'], 'Created TowerNotification must have id specified');
+        $this->assertNotNull(TowerNotification::find($created['id']), 'TowerNotification with given id must be in DB');
+        $this->assertModelData($towerNotification, $created);
     }
 
     /**
@@ -44,10 +44,10 @@ class TowerNotificationRepositoryTest extends TestCase
     {
         $towerNotification = factory(TowerNotification::class)->create();
 
-        $dbTowerNotification = $this->towerNotificationRepo->find($towerNotification->id);
+        $db = $this->towerRepo->find($towerNotification->id);
 
-        $dbTowerNotification = $dbTowerNotification->toArray();
-        $this->assertModelData($towerNotification->toArray(), $dbTowerNotification);
+        $db = $db->toArray();
+        $this->assertModelData($towerNotification->toArray(), $db);
     }
 
     /**
@@ -56,13 +56,13 @@ class TowerNotificationRepositoryTest extends TestCase
     public function test_update_tower_notification()
     {
         $towerNotification = factory(TowerNotification::class)->create();
-        $fakeTowerNotification = factory(TowerNotification::class)->make()->toArray();
+        $fake = factory(TowerNotification::class)->make()->toArray();
 
-        $updatedTowerNotification = $this->towerNotificationRepo->update($fakeTowerNotification, $towerNotification->id);
+        $updated = $this->towerRepo->update($fake, $towerNotification->id);
 
-        $this->assertModelData($fakeTowerNotification, $updatedTowerNotification->toArray());
-        $dbTowerNotification = $this->towerNotificationRepo->find($towerNotification->id);
-        $this->assertModelData($fakeTowerNotification, $dbTowerNotification->toArray());
+        $this->assertModelData($fake, $updated->toArray());
+        $db = $this->towerRepo->find($towerNotification->id);
+        $this->assertModelData($fake, $db->toArray());
     }
 
     /**
@@ -72,7 +72,7 @@ class TowerNotificationRepositoryTest extends TestCase
     {
         $towerNotification = factory(TowerNotification::class)->create();
 
-        $resp = $this->towerNotificationRepo->delete($towerNotification->id);
+        $resp = $this->towerRepo->delete($towerNotification->id);
 
         $this->assertTrue($resp);
         $this->assertNull(TowerNotification::find($towerNotification->id), 'TowerNotification should not exist in DB');

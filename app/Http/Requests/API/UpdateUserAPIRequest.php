@@ -26,6 +26,10 @@ class UpdateUserAPIRequest extends APIRequest
     {
         $rules = User::$rules;
 
+        if(!$this->password){
+            unset($rules['password']);
+        }
+
         return $rules;
     }
 }

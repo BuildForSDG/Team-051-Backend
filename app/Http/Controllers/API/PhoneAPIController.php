@@ -64,14 +64,14 @@ class PhoneAPIController extends AppBaseController
      * Display the specified Phone.
      * GET|HEAD /phones/{id}
      *
-     * @param int $id
+     * @param int $phone_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($phone_id)
     {
         /** @var Phone $phone */
-        $phone = $this->phoneRepository->find($id);
+        $phone = $this->phoneRepository->find($phone_id);
 
         if (empty($phone)) {
             return $this->sendError('Phone not found');
@@ -84,23 +84,23 @@ class PhoneAPIController extends AppBaseController
      * Update the specified Phone in storage.
      * PUT/PATCH /phones/{id}
      *
-     * @param int $id
+     * @param int $phone_id
      * @param UpdatePhoneAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePhoneAPIRequest $request)
+    public function update($phone_id, UpdatePhoneAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Phone $phone */
-        $phone = $this->phoneRepository->find($id);
+        $phone = $this->phoneRepository->find($phone_id);
 
         if (empty($phone)) {
             return $this->sendError('Phone not found');
         }
 
-        $phone = $this->phoneRepository->update($input, $id);
+        $phone = $this->phoneRepository->update($input, $phone_id);
 
         return $this->sendResponse($phone->toArray(), 'Phone updated successfully');
     }
@@ -109,16 +109,16 @@ class PhoneAPIController extends AppBaseController
      * Remove the specified Phone from storage.
      * DELETE /phones/{id}
      *
-     * @param int $id
+     * @param int $phone_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($phone_id)
     {
         /** @var Phone $phone */
-        $phone = $this->phoneRepository->find($id);
+        $phone = $this->phoneRepository->find($phone_id);
 
         if (empty($phone)) {
             return $this->sendError('Phone not found');

@@ -64,14 +64,14 @@ class PickupAPIController extends AppBaseController
      * Display the specified Pickup.
      * GET|HEAD /pickups/{id}
      *
-     * @param int $id
+     * @param int $pickup_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($pickup_id)
     {
         /** @var Pickup $pickup */
-        $pickup = $this->pickupRepository->find($id);
+        $pickup = $this->pickupRepository->find($pickup_id);
 
         if (empty($pickup)) {
             return $this->sendError('Pickup not found');
@@ -84,23 +84,23 @@ class PickupAPIController extends AppBaseController
      * Update the specified Pickup in storage.
      * PUT/PATCH /pickups/{id}
      *
-     * @param int $id
+     * @param int $pickup_id
      * @param UpdatePickupAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePickupAPIRequest $request)
+    public function update($pickup_id, UpdatePickupAPIRequest $request)
     {
         $input = $request->all();
 
         /** @var Pickup $pickup */
-        $pickup = $this->pickupRepository->find($id);
+        $pickup = $this->pickupRepository->find($pickup_id);
 
         if (empty($pickup)) {
             return $this->sendError('Pickup not found');
         }
 
-        $pickup = $this->pickupRepository->update($input, $id);
+        $pickup = $this->pickupRepository->update($input, $pickup_id);
 
         return $this->sendResponse($pickup->toArray(), 'Pickup updated successfully');
     }
@@ -109,16 +109,16 @@ class PickupAPIController extends AppBaseController
      * Remove the specified Pickup from storage.
      * DELETE /pickups/{id}
      *
-     * @param int $id
+     * @param int $pickup_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($pickup_id)
     {
         /** @var Pickup $pickup */
-        $pickup = $this->pickupRepository->find($id);
+        $pickup = $this->pickupRepository->find($pickup_id);
 
         if (empty($pickup)) {
             return $this->sendError('Pickup not found');

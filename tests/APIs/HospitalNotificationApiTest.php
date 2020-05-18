@@ -15,14 +15,14 @@ class HospitalNotificationApiTest extends TestCase
      */
     public function test_create_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->make()->toArray();
+        $notification = factory(HospitalNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'POST',
-            '/api/hospital-notifications', $hospitalNotification
+            '/api/hospital-notifications', $notification
         );
 
-        $this->assertApiResponse($hospitalNotification);
+        $this->assertApiResponse($notification);
     }
 
     /**
@@ -30,14 +30,14 @@ class HospitalNotificationApiTest extends TestCase
      */
     public function test_read_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->create();
+        $notification = factory(HospitalNotification::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/hospital-notifications/'.$hospitalNotification->id
+            '/api/hospital-notifications/'.$notification->id
         );
 
-        $this->assertApiResponse($hospitalNotification->toArray());
+        $this->assertApiResponse($notification->toArray());
     }
 
     /**
@@ -45,12 +45,12 @@ class HospitalNotificationApiTest extends TestCase
      */
     public function test_update_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->create();
+        $notification = factory(HospitalNotification::class)->create();
         $editedHospitalNotification = factory(HospitalNotification::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
-            '/api/hospital-notifications/'.$hospitalNotification->id,
+            '/api/hospital-notifications/'.$notification->id,
             $editedHospitalNotification
         );
 
@@ -62,17 +62,17 @@ class HospitalNotificationApiTest extends TestCase
      */
     public function test_delete_hospital_notification()
     {
-        $hospitalNotification = factory(HospitalNotification::class)->create();
+        $notification = factory(HospitalNotification::class)->create();
 
         $this->response = $this->json(
             'DELETE',
-             '/api/hospital-notifications/'.$hospitalNotification->id
+             '/api/hospital-notifications/'.$notification->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/hospital-notifications/'.$hospitalNotification->id
+            '/api/hospital-notifications/'.$notification->id
         );
 
         $this->response->assertStatus(404);

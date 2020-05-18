@@ -17,12 +17,12 @@ use Response;
 
 class RoadSafetyResponseAPIController extends AppBaseController
 {
-    /** @var  RoadSafetyResponseRepository */
-    private $roadSafetyResponseRepository;
+    /** @var  ResponseRepo */
+    private $responseRepo;
 
-    public function __construct(RoadSafetyResponseRepository $roadSafetyResponseRepo)
+    public function __construct(RoadSafetyResponseRepository $responseRepo)
     {
-        $this->roadSafetyResponseRepository = $roadSafetyResponseRepo;
+        $this->responseRepo = $responseRepo;
     }
 
     /**
@@ -34,17 +34,17 @@ class RoadSafetyResponseAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $roadSafetyResponses = $this->roadSafetyResponseRepository->all(
+        $responses = $this->responseRepo->all(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
         );
 
-        return $this->sendResponse($roadSafetyResponses->toArray(), 'Road Safety Responses retrieved successfully');
+        return $this->sendResponse($responses->toArray(), 'Road Safety Responses retrieved successfully');
     }
 
     /**
-     * Store a newly created RoadSafetyResponse in storage.
+     * Store a newly created Response in storage.
      * POST /roadSafetyResponses
      *
      * @param CreateRoadSafetyResponseAPIRequest $request
@@ -55,76 +55,76 @@ class RoadSafetyResponseAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $roadSafetyResponse = $this->roadSafetyResponseRepository->create($input);
+        $response = $this->responseRepo->create($input);
 
-        return $this->sendResponse($roadSafetyResponse->toArray(), 'Road Safety Response saved successfully');
+        return $this->sendResponse($response->toArray(), 'Road Safety Response saved successfully');
     }
 
     /**
      * Display the specified RoadSafetyResponse.
      * GET|HEAD /roadSafetyResponses/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      *
      * @return Response
      */
-    public function show($id)
+    public function show($safety_id)
     {
-        /** @var RoadSafetyResponse $roadSafetyResponse */
-        $roadSafetyResponse = $this->roadSafetyResponseRepository->find($id);
+        /** @var RoadSafetyResponse $response */
+        $response = $this->responseRepo->find($safety_id);
 
-        if (empty($roadSafetyResponse)) {
+        if (empty($response)) {
             return $this->sendError('Road Safety Response not found');
         }
 
-        return $this->sendResponse($roadSafetyResponse->toArray(), 'Road Safety Response retrieved successfully');
+        return $this->sendResponse($response->toArray(), 'Road Safety Response retrieved successfully');
     }
 
     /**
      * Update the specified RoadSafetyResponse in storage.
      * PUT/PATCH /roadSafetyResponses/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      * @param UpdateRoadSafetyResponseAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateRoadSafetyResponseAPIRequest $request)
+    public function update($safety_id, UpdateRoadSafetyResponseAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var RoadSafetyResponse $roadSafetyResponse */
-        $roadSafetyResponse = $this->roadSafetyResponseRepository->find($id);
+        /** @var RoadSafetyResponse $response */
+        $response = $this->responseRepo->find($safety_id);
 
-        if (empty($roadSafetyResponse)) {
+        if (empty($response)) {
             return $this->sendError('Road Safety Response not found');
         }
 
-        $roadSafetyResponse = $this->roadSafetyResponseRepository->update($input, $id);
+        $response = $this->responseRepo->update($input, $safety_id);
 
-        return $this->sendResponse($roadSafetyResponse->toArray(), 'RoadSafetyResponse updated successfully');
+        return $this->sendResponse($response->toArray(), 'RoadSafetyResponse updated successfully');
     }
 
     /**
      * Remove the specified RoadSafetyResponse from storage.
      * DELETE /roadSafetyResponses/{id}
      *
-     * @param int $id
+     * @param int $safety_id
      *
      * @throws \Exception
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($safety_id)
     {
-        /** @var RoadSafetyResponse $roadSafetyResponse */
-        $roadSafetyResponse = $this->roadSafetyResponseRepository->find($id);
+        /** @var RoadSafetyResponse $response */
+        $response = $this->responseRepo->find($safety_id);
 
-        if (empty($roadSafetyResponse)) {
+        if (empty($response)) {
             return $this->sendError('Road Safety Response not found');
         }
 
-        $roadSafetyResponse->delete();
+        $response->delete();
 
         return $this->sendSuccess('Road Safety Response deleted successfully');
     }

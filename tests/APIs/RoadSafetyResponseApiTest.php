@@ -15,14 +15,14 @@ class RoadSafetyResponseApiTest extends TestCase
      */
     public function test_create_road_safety_response()
     {
-        $roadSafetyResponse = factory(RoadSafetyResponse::class)->make()->toArray();
+        $response = factory(RoadSafetyResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'POST',
-            '/api/road-safety-responses', $roadSafetyResponse
+            '/api/road-safety-responses', $response
         );
 
-        $this->assertApiResponse($roadSafetyResponse);
+        $this->assertApiResponse($response);
     }
 
     /**
@@ -30,14 +30,14 @@ class RoadSafetyResponseApiTest extends TestCase
      */
     public function test_read_road_safety_response()
     {
-        $roadSafetyResponse = factory(RoadSafetyResponse::class)->create();
+        $response = factory(RoadSafetyResponse::class)->create();
 
         $this->response = $this->json(
             'GET',
-            '/api/road-safety-responses/'.$roadSafetyResponse->id
+            '/api/road-safety-responses/'.$response->id
         );
 
-        $this->assertApiResponse($roadSafetyResponse->toArray());
+        $this->assertApiResponse($response->toArray());
     }
 
     /**
@@ -45,12 +45,12 @@ class RoadSafetyResponseApiTest extends TestCase
      */
     public function test_update_road_safety_response()
     {
-        $roadSafetyResponse = factory(RoadSafetyResponse::class)->create();
+        $response = factory(RoadSafetyResponse::class)->create();
         $editedRoadSafetyResponse = factory(RoadSafetyResponse::class)->make()->toArray();
 
         $this->response = $this->json(
             'PUT',
-            '/api/road-safety-responses/'.$roadSafetyResponse->id,
+            '/api/road-safety-responses/'.$response->id,
             $editedRoadSafetyResponse
         );
 
@@ -62,17 +62,17 @@ class RoadSafetyResponseApiTest extends TestCase
      */
     public function test_delete_road_safety_response()
     {
-        $roadSafetyResponse = factory(RoadSafetyResponse::class)->create();
+        $response = factory(RoadSafetyResponse::class)->create();
 
         $this->response = $this->json(
             'DELETE',
-             '/api/road-safety-responses/'.$roadSafetyResponse->id
+             '/api/road-safety-responses/'.$response->id
          );
 
         $this->assertApiSuccess();
         $this->response = $this->json(
             'GET',
-            '/api/road-safety-responses/'.$roadSafetyResponse->id
+            '/api/road-safety-responses/'.$response->id
         );
 
         $this->response->assertStatus(404);
