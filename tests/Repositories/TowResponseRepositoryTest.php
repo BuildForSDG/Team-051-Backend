@@ -33,7 +33,7 @@ class TowResponseRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created TowResponse must have id specified');
-        $this->assertNotNull(TowResponse::find($created['id']), 'TowResponse with given id must be in DB');
+        $this->assertNotNull((new TowResponse)->find($created['id']), 'TowResponse with given id must be in DB');
         $this->assertModelData($towResponse, $created);
     }
 
@@ -75,6 +75,6 @@ class TowResponseRepositoryTest extends TestCase
         $resp = $this->towRepo->delete($towResponse->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(TowResponse::find($towResponse->id), 'TowResponse should not exist in DB');
+        $this->assertNull((new TowResponse)->find($towResponse->id), 'TowResponse should not exist in DB');
     }
 }

@@ -33,7 +33,7 @@ class PickupResponseRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created PickupResponse must have id specified');
-        $this->assertNotNull(PickupResponse::find($created['id']), 'PickupResponse with given id must be in DB');
+        $this->assertNotNull((new PickupResponse)->find($created['id']), 'PickupResponse with given id must be in DB');
         $this->assertModelData($pickup, $created);
     }
 
@@ -75,6 +75,6 @@ class PickupResponseRepositoryTest extends TestCase
         $resp = $this->pickup->delete($pickup->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(PickupResponse::find($pickup->id), 'PickupResponse should not exist in DB');
+        $this->assertNull((new PickupResponse)->find($pickup->id), 'PickupResponse should not exist in DB');
     }
 }

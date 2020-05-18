@@ -33,7 +33,7 @@ class BreakdownRepositoryTest extends TestCase
         $createdBreakdown = $createdBreakdown->toArray();
         $this->assertArrayHasKey('id', $createdBreakdown);
         $this->assertNotNull($createdBreakdown['id'], 'Created Breakdown must have id specified');
-        $this->assertNotNull(Breakdown::find($createdBreakdown['id']), 'Breakdown with given id must be in DB');
+        $this->assertNotNull((new Breakdown)->find($createdBreakdown['id']), 'Breakdown with given id must be in DB');
         $this->assertModelData($breakdown, $createdBreakdown);
     }
 
@@ -75,6 +75,6 @@ class BreakdownRepositoryTest extends TestCase
         $resp = $this->breakdownRepo->delete($breakdown->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Breakdown::find($breakdown->id), 'Breakdown should not exist in DB');
+        $this->assertNull((new Breakdown)->find($breakdown->id), 'Breakdown should not exist in DB');
     }
 }

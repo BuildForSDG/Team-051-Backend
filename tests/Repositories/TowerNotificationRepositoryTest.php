@@ -33,7 +33,7 @@ class TowerNotificationRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created TowerNotification must have id specified');
-        $this->assertNotNull(TowerNotification::find($created['id']), 'TowerNotification with given id must be in DB');
+        $this->assertNotNull((new TowerNotification)->find($created['id']), 'TowerNotification with given id must be in DB');
         $this->assertModelData($towerNotification, $created);
     }
 
@@ -75,6 +75,6 @@ class TowerNotificationRepositoryTest extends TestCase
         $resp = $this->towerRepo->delete($towerNotification->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(TowerNotification::find($towerNotification->id), 'TowerNotification should not exist in DB');
+        $this->assertNull((new TowerNotification)->find($towerNotification->id), 'TowerNotification should not exist in DB');
     }
 }

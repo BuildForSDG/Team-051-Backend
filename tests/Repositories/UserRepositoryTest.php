@@ -35,7 +35,7 @@ class UserRepositoryTest extends TestCase
         $createdUser = $createdUser->toArray();
         $this->assertArrayHasKey('id', $createdUser);
         $this->assertNotNull($createdUser['id'], 'Created User must have id specified');
-        $this->assertNotNull(User::find($createdUser['id']), 'User with given id must be in DB');
+        $this->assertNotNull((new User)->find($createdUser['id']), 'User with given id must be in DB');
 
         unset($user['password']);
 
@@ -80,6 +80,6 @@ class UserRepositoryTest extends TestCase
         $resp = $this->userRepo->delete($user->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(User::find($user->id), 'User should not exist in DB');
+        $this->assertNull((new User)->find($user->id), 'User should not exist in DB');
     }
 }

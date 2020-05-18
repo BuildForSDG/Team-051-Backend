@@ -33,7 +33,7 @@ class KidnappingRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created Kidnapping must have id specified');
-        $this->assertNotNull(Kidnapping::find($created['id']), 'Kidnapping with given id must be in DB');
+        $this->assertNotNull((new Kidnapping)->find($created['id']), 'Kidnapping with given id must be in DB');
         $this->assertModelData($kidnapping, $created);
     }
 
@@ -75,6 +75,6 @@ class KidnappingRepositoryTest extends TestCase
         $resp = $this->kidnappingRepo->delete($kidnapping->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Kidnapping::find($kidnapping->id), 'Kidnapping should not exist in DB');
+        $this->assertNull((new Kidnapping)->find($kidnapping->id), 'Kidnapping should not exist in DB');
     }
 }

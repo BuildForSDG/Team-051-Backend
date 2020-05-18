@@ -33,7 +33,7 @@ class HospitalNotificationRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created HospitalNotification must have id specified');
-        $this->assertNotNull(HospitalNotification::find($created['id']), 'HospitalNotification with given id must be in DB');
+        $this->assertNotNull((new HospitalNotification)->find($created['id']), 'HospitalNotification with given id must be in DB');
         $this->assertModelData($notification, $created);
     }
 
@@ -75,6 +75,6 @@ class HospitalNotificationRepositoryTest extends TestCase
         $resp = $this->notificationRepo->delete($notification->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(HospitalNotification::find($notification->id), 'HospitalNotification should not exist in DB');
+        $this->assertNull((new HospitalNotification)->find($notification->id), 'HospitalNotification should not exist in DB');
     }
 }

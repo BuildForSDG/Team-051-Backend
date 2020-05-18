@@ -33,7 +33,7 @@ class StateRepositoryTest extends TestCase
         $createdState = $createdState->toArray();
         $this->assertArrayHasKey('id', $createdState);
         $this->assertNotNull($createdState['id'], 'Created State must have id specified');
-        $this->assertNotNull(State::find($createdState['id']), 'State with given id must be in DB');
+        $this->assertNotNull((new State)->find($createdState['id']), 'State with given id must be in DB');
         $this->assertModelData($state, $createdState);
     }
 
@@ -75,6 +75,6 @@ class StateRepositoryTest extends TestCase
         $resp = $this->stateRepo->delete($state->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(State::find($state->id), 'State should not exist in DB');
+        $this->assertNull((new State)->find($state->id), 'State should not exist in DB');
     }
 }

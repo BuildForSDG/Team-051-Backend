@@ -33,7 +33,7 @@ class RoadSafetyResponseRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created RoadSafetyResponse must have id specified');
-        $this->assertNotNull(RoadSafetyResponse::find($created['id']), 'RoadSafetyResponse with given id must be in DB');
+        $this->assertNotNull((new RoadSafetyResponse)->find($created['id']), 'RoadSafetyResponse with given id must be in DB');
         $this->assertModelData($safety, $created);
     }
 
@@ -75,6 +75,6 @@ class RoadSafetyResponseRepositoryTest extends TestCase
         $resp = $this->safetyRepo->delete($safety->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(RoadSafetyResponse::find($safety->id), 'RoadSafetyResponse should not exist in DB');
+        $this->assertNull((new RoadSafetyResponse)->find($safety->id), 'RoadSafetyResponse should not exist in DB');
     }
 }

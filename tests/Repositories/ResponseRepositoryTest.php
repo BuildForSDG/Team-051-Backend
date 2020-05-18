@@ -33,7 +33,7 @@ class ResponseRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created Response must have id specified');
-        $this->assertNotNull(Response::find($created['id']), 'Response with given id must be in DB');
+        $this->assertNotNull((new Response)->find($created['id']), 'Response with given id must be in DB');
         $this->assertModelData($response, $created);
     }
 
@@ -75,6 +75,6 @@ class ResponseRepositoryTest extends TestCase
         $resp = $this->responseRepo->delete($response->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Response::find($response->id), 'Response should not exist in DB');
+        $this->assertNull((new Response)->find($response->id), 'Response should not exist in DB');
     }
 }

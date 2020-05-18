@@ -33,7 +33,7 @@ class RobberyRepositoryTest extends TestCase
         $created = $created->toArray();
         $this->assertArrayHasKey('id', $created);
         $this->assertNotNull($created['id'], 'Created Robbery must have id specified');
-        $this->assertNotNull(Robbery::find($created['id']), 'Robbery with given id must be in DB');
+        $this->assertNotNull((new Robbery)->find($created['id']), 'Robbery with given id must be in DB');
         $this->assertModelData($robbery, $created);
     }
 
@@ -75,6 +75,6 @@ class RobberyRepositoryTest extends TestCase
         $resp = $this->robberyRepo->delete($robbery->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Robbery::find($robbery->id), 'Robbery should not exist in DB');
+        $this->assertNull((new Robbery)->find($robbery->id), 'Robbery should not exist in DB');
     }
 }
