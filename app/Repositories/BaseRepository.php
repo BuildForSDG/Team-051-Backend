@@ -95,11 +95,17 @@ abstract class BaseRepository
             }
         }
 
-        if (!is_null($skip)) {
+//        if (!is_null($skip)) {
+//            $query->skip($skip);
+//        }
+        if ($skip !== null) {
             $query->skip($skip);
         }
 
-        if (!is_null($limit)) {
+//        if (!is_null($limit)) {
+//            $query->limit($limit);
+//        }
+        if ($limit !== null) {
             $query->limit($limit);
         }
 
