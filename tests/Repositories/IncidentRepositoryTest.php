@@ -33,7 +33,7 @@ class IncidentRepositoryTest extends TestCase
         $createdIncident = $createdIncident->toArray();
         $this->assertArrayHasKey('id', $createdIncident);
         $this->assertNotNull($createdIncident['id'], 'Created Incident must have id specified');
-        $this->assertNotNull(Incident::find($createdIncident['id']), 'Incident with given id must be in DB');
+        $this->assertNotNull((new Incident)->find($createdIncident['id']), 'Incident with given id must be in DB');
         $this->assertModelData($incident, $createdIncident);
     }
 
@@ -75,6 +75,6 @@ class IncidentRepositoryTest extends TestCase
         $resp = $this->incidentRepo->delete($incident->id);
 
         $this->assertTrue($resp);
-        $this->assertNull(Incident::find($incident->id), 'Incident should not exist in DB');
+        $this->assertNull((new Incident)->find($incident->id), 'Incident should not exist in DB');
     }
 }
