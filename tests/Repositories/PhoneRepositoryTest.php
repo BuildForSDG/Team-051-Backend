@@ -18,7 +18,7 @@ class PhoneRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->phoneRepo = \App::make(PhoneRepository::class);
+        $this->phoneRepo = app(PhoneRepository::class);
     }
 
     /**

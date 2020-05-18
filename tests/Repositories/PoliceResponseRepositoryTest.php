@@ -18,7 +18,7 @@ class PoliceResponseRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->policeRepo = \App::make(PoliceResponseRepository::class);
+        $this->policeRepo = app(PoliceResponseRepository::class);
     }
 
     /**
@@ -61,8 +61,8 @@ class PoliceResponseRepositoryTest extends TestCase
         $updated = $this->policeRepo->update($fake, $policeResponse->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->policeRepo->find($policeResponse->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->policeRepo->find($policeResponse->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

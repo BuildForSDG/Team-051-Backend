@@ -18,7 +18,7 @@ class HospitalNotificationRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->notificationRepo = \App::make(HospitalNotificationRepository::class);
+        $this->notificationRepo = app(HospitalNotificationRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class HospitalNotificationRepositoryTest extends TestCase
     {
         $notification = factory(HospitalNotification::class)->create();
 
-        $db = $this->notificationRepo->find($notification->id);
+        $database = $this->notificationRepo->find($notification->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($notification->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($notification->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class HospitalNotificationRepositoryTest extends TestCase
         $updated = $this->notificationRepo->update($fake, $notification->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->notificationRepo->find($notification->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->notificationRepo->find($notification->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

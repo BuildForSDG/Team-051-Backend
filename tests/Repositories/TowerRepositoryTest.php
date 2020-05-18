@@ -18,7 +18,7 @@ class TowerRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->towerRepo = \App::make(TowerRepository::class);
+        $this->towerRepo = app(TowerRepository::class);
     }
 
     /**

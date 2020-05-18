@@ -18,7 +18,7 @@ class RoadRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->roadRepo = \App::make(RoadRepository::class);
+        $this->roadRepo = app(RoadRepository::class);
     }
 
     /**

@@ -18,7 +18,7 @@ class TowResponseRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->towRepo = \App::make(TowResponseRepository::class);
+        $this->towRepo = app(TowResponseRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class TowResponseRepositoryTest extends TestCase
     {
         $towResponse = factory(TowResponse::class)->create();
 
-        $db = $this->towRepo->find($towResponse->id);
+        $database = $this->towRepo->find($towResponse->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($towResponse->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($towResponse->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class TowResponseRepositoryTest extends TestCase
         $updated = $this->towRepo->update($fake, $towResponse->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->towRepo->find($towResponse->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->towRepo->find($towResponse->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

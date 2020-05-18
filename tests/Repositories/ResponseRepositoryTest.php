@@ -18,7 +18,7 @@ class ResponseRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->responseRepo = \App::make(ResponseRepository::class);
+        $this->responseRepo = app(ResponseRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class ResponseRepositoryTest extends TestCase
     {
         $response = factory(Response::class)->create();
 
-        $db = $this->responseRepo->find($response->id);
+        $database = $this->responseRepo->find($response->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($response->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($response->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class ResponseRepositoryTest extends TestCase
         $updated = $this->responseRepo->update($fake, $response->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->responseRepo->find($response->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->responseRepo->find($response->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

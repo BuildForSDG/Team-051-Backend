@@ -18,7 +18,7 @@ class AccidentRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->accidentRepo = \App::make(AccidentRepository::class);
+        $this->accidentRepo = app(AccidentRepository::class);
     }
 
     /**

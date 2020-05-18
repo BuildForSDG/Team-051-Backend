@@ -18,7 +18,7 @@ class HospitalRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->hospitalRepo = \App::make(HospitalRepository::class);
+        $this->hospitalRepo = app(HospitalRepository::class);
     }
 
     /**

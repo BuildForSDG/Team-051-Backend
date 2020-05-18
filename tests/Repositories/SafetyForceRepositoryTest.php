@@ -18,7 +18,7 @@ class SafetyForceRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->safetyRepo = \App::make(SafetyForceRepository::class);
+        $this->safetyRepo = app(SafetyForceRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class SafetyForceRepositoryTest extends TestCase
     {
         $safetyForce = factory(SafetyForce::class)->create();
 
-        $db = $this->safetyRepo->find($safetyForce->id);
+        $database = $this->safetyRepo->find($safetyForce->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($safetyForce->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($safetyForce->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class SafetyForceRepositoryTest extends TestCase
         $updated = $this->safetyRepo->update($fake, $safetyForce->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->safetyRepo->find($safetyForce->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->safetyRepo->find($safetyForce->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

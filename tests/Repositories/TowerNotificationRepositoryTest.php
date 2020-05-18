@@ -18,7 +18,7 @@ class TowerNotificationRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->towerRepo = \App::make(TowerNotificationRepository::class);
+        $this->towerRepo = app(TowerNotificationRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class TowerNotificationRepositoryTest extends TestCase
     {
         $towerNotification = factory(TowerNotification::class)->create();
 
-        $db = $this->towerRepo->find($towerNotification->id);
+        $database = $this->towerRepo->find($towerNotification->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($towerNotification->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($towerNotification->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class TowerNotificationRepositoryTest extends TestCase
         $updated = $this->towerRepo->update($fake, $towerNotification->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->towerRepo->find($towerNotification->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->towerRepo->find($towerNotification->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

@@ -18,7 +18,7 @@ class RobberyRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->robberyRepo = \App::make(RobberyRepository::class);
+        $this->robberyRepo = app(RobberyRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class RobberyRepositoryTest extends TestCase
     {
         $robbery = factory(Robbery::class)->create();
 
-        $db = $this->robberyRepo->find($robbery->id);
+        $database = $this->robberyRepo->find($robbery->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($robbery->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($robbery->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class RobberyRepositoryTest extends TestCase
         $updated = $this->robberyRepo->update($fake, $robbery->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->robberyRepo->find($robbery->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->robberyRepo->find($robbery->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

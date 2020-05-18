@@ -18,7 +18,7 @@ class StateRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->stateRepo = \App::make(StateRepository::class);
+        $this->stateRepo = app(StateRepository::class);
     }
 
     /**

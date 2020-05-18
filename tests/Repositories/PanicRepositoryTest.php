@@ -18,7 +18,7 @@ class PanicRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->panicRepo = \App::make(PanicRepository::class);
+        $this->panicRepo = app(PanicRepository::class);
     }
 
     /**

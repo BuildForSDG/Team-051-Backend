@@ -18,7 +18,7 @@ class PoliceStationRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->stationRepo = \App::make(PoliceStationRepository::class);
+        $this->stationRepo = app(PoliceStationRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class PoliceStationRepositoryTest extends TestCase
     {
         $policeStation = factory(PoliceStation::class)->create();
 
-        $db = $this->stationRepo->find($policeStation->id);
+        $database = $this->stationRepo->find($policeStation->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($policeStation->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($policeStation->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class PoliceStationRepositoryTest extends TestCase
         $updated = $this->stationRepo->update($fake, $policeStation->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->stationRepo->find($policeStation->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->stationRepo->find($policeStation->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

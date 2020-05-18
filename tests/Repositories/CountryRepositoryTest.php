@@ -18,7 +18,7 @@ class CountryRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->countryRepo = \App::make(CountryRepository::class);
+        $this->countryRepo = app(CountryRepository::class);
     }
 
     /**

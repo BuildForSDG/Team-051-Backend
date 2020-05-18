@@ -18,7 +18,7 @@ class HospitalResponseRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->hospitalRepo = \App::make(HospitalResponseRepository::class);
+        $this->hospitalRepo = app(HospitalResponseRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class HospitalResponseRepositoryTest extends TestCase
     {
         $hospital = factory(HospitalResponse::class)->create();
 
-        $db = $this->hospitalRepo->find($hospital->id);
+        $database = $this->hospitalRepo->find($hospital->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($hospital->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($hospital->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class HospitalResponseRepositoryTest extends TestCase
         $updated = $this->hospitalRepo->update($fake, $hospital->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->hospitalRepo->find($hospital->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->hospitalRepo->find($hospital->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

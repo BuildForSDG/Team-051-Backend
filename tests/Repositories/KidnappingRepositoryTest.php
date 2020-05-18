@@ -18,7 +18,7 @@ class KidnappingRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->kidnappingRepo = \App::make(KidnappingRepository::class);
+        $this->kidnappingRepo = app(KidnappingRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class KidnappingRepositoryTest extends TestCase
     {
         $kidnapping = factory(Kidnapping::class)->create();
 
-        $db = $this->kidnappingRepo->find($kidnapping->id);
+        $database = $this->kidnappingRepo->find($kidnapping->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($kidnapping->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($kidnapping->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class KidnappingRepositoryTest extends TestCase
         $updated = $this->kidnappingRepo->update($fake, $kidnapping->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->kidnappingRepo->find($kidnapping->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->kidnappingRepo->find($kidnapping->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**

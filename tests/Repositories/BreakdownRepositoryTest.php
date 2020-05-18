@@ -18,7 +18,7 @@ class BreakdownRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->breakdownRepo = \App::make(BreakdownRepository::class);
+        $this->breakdownRepo = app(BreakdownRepository::class);
     }
 
     /**

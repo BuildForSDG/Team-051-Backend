@@ -18,7 +18,7 @@ class UserRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->userRepo = \App::make(UserRepository::class);
+        $this->userRepo = app(UserRepository::class);
     }
 
     /**

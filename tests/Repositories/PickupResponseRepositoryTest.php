@@ -18,7 +18,7 @@ class PickupResponseRepositoryTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->pickup = \App::make(PickupResponseRepository::class);
+        $this->pickup = app(PickupResponseRepository::class);
     }
 
     /**
@@ -44,10 +44,10 @@ class PickupResponseRepositoryTest extends TestCase
     {
         $pickup = factory(PickupResponse::class)->create();
 
-        $db = $this->pickup->find($pickup->id);
+        $database = $this->pickup->find($pickup->id);
 
-        $db = $db->toArray();
-        $this->assertModelData($pickup->toArray(), $db);
+        $database = $database ->toArray();
+        $this->assertModelData($pickup->toArray(), $database);
     }
 
     /**
@@ -61,8 +61,8 @@ class PickupResponseRepositoryTest extends TestCase
         $updated = $this->pickup->update($fake, $pickup->id);
 
         $this->assertModelData($fake, $updated->toArray());
-        $db = $this->pickup->find($pickup->id);
-        $this->assertModelData($fake, $db->toArray());
+        $database = $this->pickup->find($pickup->id);
+        $this->assertModelData($fake, $database ->toArray());
     }
 
     /**
